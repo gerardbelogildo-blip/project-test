@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Completo - Gerard TV Restaurante</title>
+    <title>Menu Completo - Danieta Sabores</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
+        /* ===== ESTILOS GLOBAIS (DO SITE DE REFERÊNCIA) ===== */
         :root {
             --primary-yellow: #ffcc00;
             --primary-black: #000000;
@@ -22,6 +26,7 @@
             --dark-gray: #1a1a1a;
             --light-gray: #f8f9fa;
             --gold: #ffd700;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * {
@@ -43,13 +48,13 @@
             font-weight: 700;
         }
 
-        /* Professional Header */
+        /* ===== CABEÇALHO PROFISSIONAL (COPIADO DO REFERÊNCIA) ===== */
         .navbar-gerard {
             background: rgba(255, 255, 255, 0.98) !important;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             padding: 15px 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: var(--transition);
             border-bottom: 3px solid transparent;
         }
 
@@ -60,17 +65,70 @@
         }
 
         .navbar-brand {
+            display: flex;
+            align-items: center;
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary-black) !important;
+        }
+
+        .navbar-brand img {
+            height: 80px;
+            width: auto;
+            margin-right: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.1) rotate(3deg);
         }
 
         .navbar-brand span {
             color: var(--primary-yellow);
+            margin-left: 5px;
         }
 
-        /* Hero Banner para Menu */
+        .nav-item {
+            margin: 0 5px;
+        }
+
+        .nav-link {
+            color: var(--primary-black) !important;
+            font-weight: 600;
+            padding: 10px 15px !important;
+            position: relative;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid var(--primary-yellow);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: -1;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-black) !important;
+            font-weight: 700;
+        }
+
+        /* ===== ESTILOS DO MENU (ORIGINAIS, ADAPTADOS) ===== */
         .menu-hero {
             background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
                         url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
@@ -168,6 +226,14 @@
             border-color: var(--primary-yellow);
         }
 
+        .item-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
         .item-header {
             display: flex;
             justify-content: space-between;
@@ -234,7 +300,7 @@
             color: #5d4037;
         }
 
-        /* Special Badge */
+        /* Special Badge (sem emoji) */
         .special-badge {
             position: absolute;
             top: 15px;
@@ -246,9 +312,10 @@
             font-weight: 700;
             font-size: 0.8rem;
             box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
+            z-index: 10;
         }
 
-        /* Menu Footer */
+        /* Menu Footer (parte informativa antes do rodapé) */
         .menu-footer {
             background: var(--primary-black);
             color: var(--primary-white);
@@ -268,36 +335,6 @@
             padding: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-        }
-
-        /* Wine Section Special */
-        .wine-card {
-            background: var(--primary-white);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-
-        .wine-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .wine-type {
-            font-size: 0.9rem;
-            color: var(--primary-yellow);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .wine-year {
-            color: #888;
-            font-size: 0.9rem;
         }
 
         /* Price List */
@@ -320,54 +357,156 @@
             border-bottom: none;
         }
 
-        /* Footer */
+        /* ===== RODAPÉ (COPIADO DO REFERÊNCIA) ===== */
         .footer-gerard {
             background: var(--primary-black);
             color: var(--primary-white);
-            padding: 60px 0 30px;
+            padding: 80px 0 30px;
         }
 
-        /* Responsivo */
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary-white);
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 70px;
+            width: auto;
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .footer-logo:hover img {
+            transform: scale(1.1);
+        }
+
+        .footer-logo span {
+            color: var(--primary-yellow);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            transform: translateY(-8px) rotate(360deg);
+        }
+
+        /* Delivery Badge */
+        .delivery-badge {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.4);
+            z-index: 1000;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .delivery-badge:hover {
+            background: var(--primary-black);
+            color: var(--primary-yellow);
+            transform: translateY(-5px);
+            animation: none;
+        }
+
+        /* Responsividade */
         @media (max-width: 768px) {
             .menu-hero {
                 height: 250px;
                 margin-bottom: 40px;
             }
-            
             .menu-hero h1 {
                 font-size: 2.5rem;
             }
-            
             .category-nav {
                 top: 70px;
                 padding: 15px 0;
             }
-            
             .item-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
             .item-price {
                 margin-top: 10px;
                 align-self: flex-start;
             }
-            
             body {
                 padding-top: 70px;
             }
-            
             .menu-section {
                 padding: 50px 0;
+            }
+            .navbar-brand {
+                font-size: 1.4rem;
+            }
+            .navbar-brand img {
+                height: 60px;
+            }
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+            .footer-logo img {
+                height: 55px;
+            }
+            .delivery-badge {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+
+    <!-- ================================================= -->
+    <!-- CABEÇALHO - EXATAMENTE COMO NO REFERÊNCIA         -->
+    <!-- LOGO: substitua "img/logo.png" pelo caminho real  -->
+    <!-- ================================================= -->
     <nav class="navbar navbar-expand-lg navbar-gerard fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">GERARD<span>TV</span></a>
+            <a class="navbar-brand" href="index.html">
+                <img src="C:\Users\gerar\Music\STREAM\project-test\ad\logo\Logo Restaurante Chamativo Amarelo e Branco (1).png" alt="DANIETA SABORES">
+                DANIETA<span>SABORES</span>
+            </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -375,30 +514,21 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sobre.html">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="menu.html">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="reservas.html">Reservas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="galeria.html">Galeria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactos.html">Contactos</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sobre.html">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="menu.html">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="galeria.html">Galeria</a></li>
+                    <li class="nav-item"><a class="nav-link" href="delivery.html">Delivery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Banner -->
+    <!-- ================================================= -->
+    <!-- HERO DO MENU (MANTIDO)                            -->
+    <!-- ================================================= -->
     <section class="menu-hero">
         <div class="container">
             <div class="menu-hero-content">
@@ -408,321 +538,62 @@
         </div>
     </section>
 
-    <!-- Category Navigation -->
+    <!-- ================================================= -->
+    <!-- NAVEGAÇÃO DAS CATEGORIAS (MANTIDA)               -->
+    <!-- ================================================= -->
     <div class="category-nav">
         <div class="container">
             <ul class="nav nav-pills justify-content-center flex-wrap">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#entradas">Entradas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#principais">Principais</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#peixe">Peixe & Marisco</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#carnes">Carnes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#sobremesas">Sobremesas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#bebidas">Bebidas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#especialidades">Especialidades</a>
-                </li>
+                <li class="nav-item"><a class="nav-link active" href="#sopas">Sopas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#principais">Principais</a></li>
+                <li class="nav-item"><a class="nav-link" href="#peixes">Peixes & Marisco</a></li>
+                <li class="nav-item"><a class="nav-link" href="#carnes">Carnes</a></li>
+                <li class="nav-item"><a class="nav-link" href="#acompanhamentos">Acompanhamentos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#sobremesas">Sobremesas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#bebidas">Bebidas</a></li>
             </ul>
         </div>
     </div>
 
-    <!-- Menu Content -->
+    <!-- ================================================= -->
+    <!-- CONTEÚDO DO MENU - TODOS OS PRATOS TÍPICOS        -->
+    <!-- TODOS OS EMOJIS FORAM REMOVIDOS                  -->
+    <!-- ================================================= -->
     <div class="container">
-        <!-- ENTRADAS Section -->
-        <section id="entradas" class="menu-section">
-            <h2 class="section-title">Entradas</h2>
-            <p class="text-center mb-5">Comece sua experiência com nossos aperitivos tradicionais</p>
-            
+        <!-- SOPAS -->
+        <section id="sopas" class="menu-section">
+            <h2 class="section-title">Sopas & Entradas</h2>
+            <p class="text-center mb-5">Comece sua refeição com as nossas sopas tradicionais</p>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="menu-item">
-                        <span class="special-badge">Mais Pedido</span>
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Sopa+de+Peixe+Angolana" alt="Sopa de Peixe">
+                        <span class="special-badge">Recomendado</span>
                         <div class="item-header">
-                            <h3 class="item-title">Gindungo com Peixe Fumado</h3>
-                            <div class="item-price">1.200 Kz</div>
+                            <h3 class="item-title">Sopa de Peixe</h3>
+                            <div class="item-price">1.800 Kz</div>
                         </div>
                         <p class="item-description">
-                            Molho picante tradicional com peixe fumado de Benguela, acompanhado de mandioca cozida. Uma explosão de sabores angolanos.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag picante">Picante</span>
-                            <span class="item-tag tradicional">Tradicional</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Salada de Abacate com Camarão</h3>
-                            <div class="item-price">1.500 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Abacates frescos da Huíla com camarão grelhado, cebola roxa, tomate e molho de limão com coentro.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag">Fresco</span>
-                            <span class="item-tag recomendado">Recomendado</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Caldo de Mbambi</h3>
-                            <div class="item-price">900 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Sopa tradicional com caranguejo fresco, quiabo e especiarias. Servida com pão caseiro.
+                            Sopa rica em peixe fresco, legumes, tomate e coentro. Acompanha pão caseiro.
                         </p>
                         <div class="item-tags">
                             <span class="item-tag tradicional">Tradicional</span>
-                            <span class="item-tag">Caseiro</span>
+                            <span class="item-tag">Leve</span>
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-lg-6">
                     <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Sopa+de+Carne" alt="Sopa de Carne">
                         <div class="item-header">
-                            <h3 class="item-title">Samosas de Carne com Molho de Piri-piri</h3>
-                            <div class="item-price">800 Kz</div>
+                            <h3 class="item-title">Sopa de Carne</h3>
+                            <div class="item-price">1.600 Kz</div>
                         </div>
                         <p class="item-description">
-                            Massa folhada crocante recheada com carne temperada e ervas. Acompanha molho piri-piri artesanal.
+                            Sopa encorpada com carne bovina desfiada, batata-doce, cenoura e mandioca.
                         </p>
                         <div class="item-tags">
-                            <span class="item-tag picante">Picante</span>
-                            <span class="item-tag">Crocante</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PRATOS PRINCIPAIS Section -->
-        <section id="principais" class="menu-section">
-            <h2 class="section-title">Pratos Principais</h2>
-            <p class="text-center mb-5">Os clássicos da culinária angolana que conquistam corações</p>
-            
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <span class="special-badge">Especialidade da Casa</span>
-                        <div class="item-header">
-                            <h3 class="item-title">Muamba de Galinha</h3>
-                            <div class="item-price">3.800 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            O prato mais emblemático de Angola. Frango marinado em óleo de palma, quiabo, alho e gindungo. Acompanha funge de bombó ou arroz.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag tradicional">Ícone Nacional</span>
-                            <span class="item-tag recomendado">Mais Pedido</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Cabidela à Moda do Uíge</h3>
-                            <div class="item-price">4.200 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Arroz cozido no sangue da galinha com vinho tinto, acompanhado de galinha guisada. Sabor intenso e tradicional.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag tradicional">Tradicional</span>
-                            <span class="item-tag">Intenso</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Feijão de Óleo com Peixe Seco</h3>
-                            <div class="item-price">3.500 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Feijão mulatinho cozido em óleo de palma com peixe seco fumado, servido com pirão de farinha de mandioca.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag vegetariano">Opção Vegetariana</span>
-                            <span class="item-tag tradicional">Tradicional</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Funge de Bombó com Molho de Peixe</h3>
-                            <div class="item-price">3.200 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Polenta de mandioca com textura cremosa, servida com molho de peixe fresco e legumes salteados.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag tradicional">Base da Culinária</span>
-                            <span class="item-tag">Cremoso</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PEIXE & MARISCO Section -->
-        <section id="peixe" class="menu-section">
-            <h2 class="section-title">Peixe & Marisco</h2>
-            <p class="text-center mb-5">Frescura do mar angolano em cada prato</p>
-            
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <span class="special-badge">Do Mar</span>
-                        <div class="item-header">
-                            <h3 class="item-title">Calulu de Peixe Fresco</h3>
-                            <div class="item-price">4.800 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Peixe fresco (corvina ou garoupa) cozido com quiabo, tomate, cebola e óleo de palma. Acompanha funge ou arroz.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag tradicional">Clássico</span>
-                            <span class="item-tag recomendado">Recomendado</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Mufete Tradicional</h3>
-                            <div class="item-price">5.500 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Peixe grelhado inteiro (pescada ou cherne) servido com feijão de óleo, banana da terra frita, batata doce e pirão.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag tradicional">Festivo</span>
-                            <span class="item-tag">Completo</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Camarão Grelhado com Molho de Alho</h3>
-                            <div class="item-price">6.000 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Camarões jumbo grelhados no carvão com molho de alho e ervas, acompanhados de legumes salteados e arroz de coco.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag">Premium</span>
-                            <span class="item-tag recomendado">Recomendado</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Lagosta à Gerard</h3>
-                            <div class="item-price">9.500 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Lagosta fresca grelhada com manteiga de alho e ervas finas, servida com purê de inhame e vegetais assados.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag">Especial</span>
-                            <span class="item-tag">Premium</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CARNES Section -->
-        <section id="carnes" class="menu-section">
-            <h2 class="section-title">Carnes</h2>
-            <p class="text-center mb-5">Carnes selecionadas preparadas com técnicas tradicionais</p>
-            
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Carne de Caça Guisada</h3>
-                            <div class="item-price">4.500 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Carne de javali ou veado guisada em vinho tinto com legumes da época, ervas aromáticas e especiarias.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag tradicional">Silvestre</span>
-                            <span class="item-tag">Aromático</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Costelas de Porco no Carvão</h3>
-                            <div class="item-price">4.200 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Costelas marinadas em molho especial e grelhadas lentamente no carvão. Acompanha salada de repolho e pirão.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag">Grelhado</span>
-                            <span class="item-tag recomendado">Favorito</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Frango no Churrasco</h3>
-                            <div class="item-price">3.800 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Frango inteiro marinado em limão e especiarias, grelhado no carvão. Servido com molho de piri-piri e mandioca frita.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag tradicional">Popular</span>
-                            <span class="item-tag">Familiar</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <div class="item-header">
-                            <h3 class="item-title">Carne Seca com Feijão Manteiga</h3>
-                            <div class="item-price">4.000 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Carne seca dessalgada e cozida com feijão manteiga, cebola e alho. Prato reconfortante e saboroso.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag tradicional">Rústico</span>
+                            <span class="item-tag tradicional">Caseira</span>
                             <span class="item-tag">Reconfortante</span>
                         </div>
                     </div>
@@ -730,286 +601,535 @@
             </div>
         </section>
 
-        <!-- SOBREMESAS Section -->
-        <section id="sobremesas" class="menu-section">
-            <h2 class="section-title">Sobremesas</h2>
-            <p class="text-center mb-5">Finalize sua refeição com doçuras tradicionais</p>
-            
+        <!-- PRATOS PRINCIPAIS -->
+        <section id="principais" class="menu-section">
+            <h2 class="section-title">Pratos Principais</h2>
+            <p class="text-center mb-5">Os grandes clássicos da cozinha angolana</p>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Muamba+de+Galinha" alt="Muamba de Galinha">
+                        <span class="special-badge">Ícone Nacional</span>
                         <div class="item-header">
-                            <h3 class="item-title">Cocada Angolana</h3>
-                            <div class="item-price">1.200 Kz</div>
+                            <h3 class="item-title">Muamba de Galinha</h3>
+                            <div class="item-price">4.200 Kz</div>
                         </div>
                         <p class="item-description">
-                            Cocô ralado fresco caramelizado com açúcar e canela, servido quente com bola de sorvete de baunilha.
+                            Frango cozinhado em óleo de palma, alho, gindungo e quiabo. Acompanha funge de bombó ou arroz.
                         </p>
                         <div class="item-tags">
-                            <span class="item-tag tradicional">Clássica</span>
-                            <span class="item-tag recomendado">Mais Pedida</span>
+                            <span class="item-tag tradicional">Tradicional</span>
+                            <span class="item-tag recomendado">Mais Pedido</span>
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-lg-6">
                     <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Calulu+de+Carne+Seca" alt="Calulu de Carne Seca">
                         <div class="item-header">
-                            <h3 class="item-title">Mousse de Maracujá</h3>
-                            <div class="item-price">1.500 Kz</div>
+                            <h3 class="item-title">Calulu de Carne Seca</h3>
+                            <div class="item-price">4.500 Kz</div>
                         </div>
                         <p class="item-description">
-                            Mousse leve e refrescante de maracujá natural, decorado com polpa de maracujá e folhas de hortelã.
+                            Carne seca dessalgada, cozida com quiabo, tomate, cebola e óleo de palma. Servido com funge.
                         </p>
                         <div class="item-tags">
-                            <span class="item-tag">Refrescante</span>
-                            <span class="item-tag vegetariano">Vegetariana</span>
+                            <span class="item-tag tradicional">Tradicional</span>
+                            <span class="item-tag">Saboroso</span>
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-lg-6">
                     <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Cabidela" alt="Cabidela">
+                        <span class="special-badge">Especialidade</span>
                         <div class="item-header">
-                            <h3 class="item-title">Pudim de Coco com Calda de Açúcar</h3>
-                            <div class="item-price">1.300 Kz</div>
+                            <h3 class="item-title">Cabidela</h3>
+                            <div class="item-price">4.800 Kz</div>
                         </div>
                         <p class="item-description">
-                            Pudim cremoso de cocô com calda de açúcar queimado, preparado no forno à moda tradicional.
+                            Arroz cozido no sangue da galinha com vinho tinto, acompanhado de galinha guisada. Sabor intenso.
                         </p>
                         <div class="item-tags">
-                            <span class="item-tag tradicional">Caseiro</span>
-                            <span class="item-tag">Cremoso</span>
+                            <span class="item-tag tradicional">Tradicional</span>
+                            <span class="item-tag picante">Picante</span>
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-lg-6">
                     <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Cabrito+Assado" alt="Cabrito Assado">
                         <div class="item-header">
-                            <h3 class="item-title">Fruta da Época com Sorvete</h3>
-                            <div class="item-price">1.000 Kz</div>
+                            <h3 class="item-title">Cabrito Assado</h3>
+                            <div class="item-price">5.500 Kz</div>
                         </div>
                         <p class="item-description">
-                            Seleção de frutas tropicais da época (manga, papaia, ananás) com sorvete artesanal de baunilha ou cocô.
+                            Cabrito marinado em alho, limão e ervas, assado lentamente até ficar macio. Acompanha pirão e salada.
                         </p>
                         <div class="item-tags">
-                            <span class="item-tag">Saudável</span>
-                            <span class="item-tag vegetariano">Vegetariana</span>
+                            <span class="item-tag tradicional">Festivo</span>
+                            <span class="item-tag recomendado">Recomendado</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Carne+Seca+com+Funge" alt="Carne Seca com Funge">
+                        <div class="item-header">
+                            <h3 class="item-title">Carne Seca com Funge</h3>
+                            <div class="item-price">4.300 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Carne seca desfiada e refogada, servida com funge de bombó ou milho e legumes salteados.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag tradicional">Rústico</span>
+                            <span class="item-tag">Reconfortante</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Galinha+Assada" alt="Galinha Assada">
+                        <div class="item-header">
+                            <h3 class="item-title">Galinha Assada</h3>
+                            <div class="item-price">4.000 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Galinha inteira assada com batatas, cebola e pimentão. Acompanha arroz branco e salada.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag">Assado</span>
+                            <span class="item-tag">Familiar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Carne+de+Porco+Frita" alt="Carne de Porco Frita">
+                        <div class="item-header">
+                            <h3 class="item-title">Carne de Porco Frita</h3>
+                            <div class="item-price">3.900 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Pedaços de porco marinados e fritos até ficarem dourados. Servido com mandioca cozida e molho piri-piri.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag picante">Picante</span>
+                            <span class="item-tag">Crocante</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Feijão+de+Óleo+de+Palma" alt="Feijão de Óleo de Palma">
+                        <div class="item-header">
+                            <h3 class="item-title">Feijão de Óleo de Palma</h3>
+                            <div class="item-price">3.200 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Feijão mulatinho cozido com óleo de palma, alho, cebola e pedaços de peixe fumado ou carne. Acompanha arroz.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag tradicional">Tradicional</span>
+                            <span class="item-tag">Substancial</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- BEBIDAS Section -->
+        <!-- PEIXES & MARISCO -->
+        <section id="peixes" class="menu-section">
+            <h2 class="section-title">Peixes & Marisco</h2>
+            <p class="text-center mb-5">Frescura do mar angolano em pratos inesquecíveis</p>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Calulu+de+Peixe" alt="Calulu de Peixe">
+                        <span class="special-badge">Do Mar</span>
+                        <div class="item-header">
+                            <h3 class="item-title">Calulu de Peixe</h3>
+                            <div class="item-price">4.800 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Peixe fresco cozido com quiabo, tomate, cebola e óleo de palma. Acompanha funge ou arroz.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag tradicional">Clássico</span>
+                            <span class="item-tag recomendado">Recomendado</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Peixe+Grelhado" alt="Peixe Grelhado">
+                        <div class="item-header">
+                            <h3 class="item-title">Peixe Grelhado</h3>
+                            <div class="item-price">4.500 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Corvina ou cachucho grelhado no carvão, servido com feijão de óleo, banana frita e pirão.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag">Grelhado</span>
+                            <span class="item-tag">Saudável</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Peixe+Mufete" alt="Peixe Mufete">
+                        <div class="item-header">
+                            <h3 class="item-title">Peixe Mufete</h3>
+                            <div class="item-price">5.200 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Peixe grelhado inteiro, servido com feijão de óleo de palma, batata-doce, banana da terra frita e pirão.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag tradicional">Festivo</span>
+                            <span class="item-tag">Completo</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Arroz+de+Marisco" alt="Arroz de Marisco">
+                        <span class="special-badge">Especial</span>
+                        <div class="item-header">
+                            <h3 class="item-title">Arroz de Marisco</h3>
+                            <div class="item-price">6.000 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Arroz cremoso com camarão, lulas, mexilhões e polvo, temperado com coentro e limão.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag">Premium</span>
+                            <span class="item-tag">Marisco</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARNES (adicionais) -->
+        <section id="carnes" class="menu-section">
+            <h2 class="section-title">Carnes</h2>
+            <p class="text-center mb-5">Preparadas com técnicas tradicionais e muito sabor</p>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Cabrito+Assado" alt="Cabrito Assado">
+                        <div class="item-header">
+                            <h3 class="item-title">Cabrito Assado</h3>
+                            <div class="item-price">5.500 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Cabrito tenro assado no forno com batatas e molho de cerveja preta.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag tradicional">Especialidade</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Carne+de+Porco+Frita" alt="Carne de Porco Frita">
+                        <div class="item-header">
+                            <h3 class="item-title">Carne de Porco Frita</h3>
+                            <div class="item-price">3.900 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Torresmos e pedaços de porco fritos na hora, crocantes e suculentos.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag">Crocante</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACOMPANHAMENTOS -->
+        <section id="acompanhamentos" class="menu-section">
+            <h2 class="section-title">Acompanhamentos</h2>
+            <p class="text-center mb-5">O complemento perfeito para o seu prato principal</p>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Funge+de+Bombó" alt="Funge de Bombó">
+                        <div class="item-header">
+                            <h3 class="item-title">Funge de Bombó</h3>
+                            <div class="item-price">800 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Polenta de farinha de mandioca, textura cremosa, base da culinária angolana.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Funge+de+Milho" alt="Funge de Milho">
+                        <div class="item-header">
+                            <h3 class="item-title">Funge de Milho</h3>
+                            <div class="item-price">800 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Versão com farinha de milho, mais encorpada e com sabor característico.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Fumbua" alt="Fumbua">
+                        <div class="item-header">
+                            <h3 class="item-title">Fumbua</h3>
+                            <div class="item-price">1.200 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Folhas de abóbora piladas e cozidas com óleo de palma, amendoim e peixe fumado.
+                        </p>
+                        <div class="item-tags">
+                            <span class="item-tag tradicional">Tradicional</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Quizaca" alt="Quizaca">
+                        <div class="item-header">
+                            <h3 class="item-title">Quizaca</h3>
+                            <div class="item-price">1.100 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Hortaliça angolana cozinhada com óleo de palma, cebola e camarão seco.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Arroz+com+Feijão" alt="Arroz com Feijão">
+                        <div class="item-header">
+                            <h3 class="item-title">Arroz com Feijão</h3>
+                            <div class="item-price">1.000 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Arroz branco soltinho com feijão manteiga ou feijão de óleo.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Feijão+com+Banana" alt="Feijão com Banana">
+                        <div class="item-header">
+                            <h3 class="item-title">Feijão com Banana</h3>
+                            <div class="item-price">1.300 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Feijão manteiga cozido com banana-da-terra madura, levemente adocicado.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Banana+Pão+Frita" alt="Banana Pão Frita">
+                        <div class="item-header">
+                            <h3 class="item-title">Banana Pão Frita</h3>
+                            <div class="item-price">900 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Banana-pão cortada em rodelas e frita, crocante por fora e macia por dentro.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Mandioca+Cozida" alt="Mandioca Cozida">
+                        <div class="item-header">
+                            <h3 class="item-title">Mandioca Cozida</h3>
+                            <div class="item-price">700 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Mandioca cozida com sal e azeite de dendê, servida quente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBREMESAS -->
+        <section id="sobremesas" class="menu-section">
+            <h2 class="section-title">Sobremesas</h2>
+            <p class="text-center mb-5">Doces tradicionais para fechar com chave de ouro</p>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Doce+de+Múcua" alt="Doce de Múcua">
+                        <span class="special-badge">Típico</span>
+                        <div class="item-header">
+                            <h3 class="item-title">Doce de Múcua</h3>
+                            <div class="item-price">1.500 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Doce feito com o fruto do embondeiro, calda perfumada e especiarias.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Bolo+de+Ginguba" alt="Bolo de Ginguba">
+                        <div class="item-header">
+                            <h3 class="item-title">Bolo de Ginguba</h3>
+                            <div class="item-price">1.200 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Bolo fofo de amendoim torrado e moído, coberto com açúcar e canela.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="menu-item">
+                        <img class="item-img" src="https://via.placeholder.com/600x400?text=Cocada+Angolana" alt="Cocada Angolana">
+                        <div class="item-header">
+                            <h3 class="item-title">Cocada Angolana</h3>
+                            <div class="item-price">1.300 Kz</div>
+                        </div>
+                        <p class="item-description">
+                            Coco ralado caramelizado, assado até dourar. Servida quente com sorvete.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BEBIDAS -->
         <section id="bebidas" class="menu-section">
-            <h2 class="section-title">Bebidas & Vinhos</h2>
-            <p class="text-center mb-5">Acompanhe sua refeição com as melhores seleções</p>
-            
+            <h2 class="section-title">Bebidas</h2>
+            <p class="text-center mb-5">Para acompanhar a sua refeição</p>
             <div class="row mb-5">
                 <div class="col-lg-6">
                     <h4 class="mb-4">Bebidas Não Alcoólicas</h4>
                     <div class="price-list">
                         <div class="price-item">
-                            <span>Sumo Natural (Laranja, Maracujá, Manga)</span>
+                            <span>Sumo Natural (Múcua, Maracujá, Manga)</span>
                             <span class="fw-bold">800 Kz</span>
                         </div>
                         <div class="price-item">
-                            <span>Refrigerantes Nacionais e Internacionais</span>
+                            <span>Refrigerantes Nacionais</span>
                             <span class="fw-bold">500 Kz</span>
                         </div>
                         <div class="price-item">
-                            <span>Água Mineral (Com/Sem Gás)</span>
+                            <span>Água Mineral</span>
                             <span class="fw-bold">400 Kz</span>
                         </div>
                         <div class="price-item">
-                            <span>Limonada ou Laranjada Caseira</span>
+                            <span>Limonada Caseira</span>
                             <span class="fw-bold">900 Kz</span>
-                        </div>
-                        <div class="price-item">
-                            <span>Café Expresso ou Pingado</span>
-                            <span class="fw-bold">600 Kz</span>
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-lg-6">
                     <h4 class="mb-4">Cervejas</h4>
                     <div class="price-list">
                         <div class="price-item">
-                            <span>Cuca (Garrafa 330ml)</span>
+                            <span>Cuca (330ml)</span>
                             <span class="fw-bold">700 Kz</span>
                         </div>
                         <div class="price-item">
-                            <span>N'gola (Garrafa 500ml)</span>
+                            <span>Maruvu (500ml)</span>
                             <span class="fw-bold">900 Kz</span>
                         </div>
                         <div class="price-item">
-                            <span>Cerveja Preta (Garrafa 330ml)</span>
+                            <span>Cerveja Nocal</span>
                             <span class="fw-bold">800 Kz</span>
                         </div>
-                        <div class="price-item">
-                            <span>Cervejas Importadas (Seleção)</span>
-                            <span class="fw-bold">1.200-2.000 Kz</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <h4 class="text-center mb-4">Nossa Selecção de Vinhos</h4>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="wine-card">
-                        <div class="wine-type">Tinto</div>
-                        <h5>Quinta da Cuca 2018</h5>
-                        <p class="wine-year">Portugal, Douro</p>
-                        <p class="mb-3">Cor rubi intensa, aromas a frutos silvestres e taninos suaves.</p>
-                        <div class="fw-bold fs-5">12.500 Kz</div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="wine-card">
-                        <div class="wine-type">Branco</div>
-                        <h5>Vinho Verde Casal Garcia</h5>
-                        <p class="wine-year">Portugal, Minho</p>
-                        <p class="mb-3">Fresco e ligeiramente frisante, perfeito para peixe e marisco.</p>
-                        <div class="fw-bold fs-5">9.800 Kz</div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="wine-card">
-                        <div class="wine-type">Rosé</div>
-                        <h5>Mateus Rosé Original</h5>
-                        <p class="wine-year">Portugal</p>
-                        <p class="mb-3">Leve e frutado, ideal para dias quentes e refeições leves.</p>
-                        <div class="fw-bold fs-5">10.200 Kz</div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- ESPECIALIDADES Section -->
-        <section id="especialidades" class="menu-section">
-            <h2 class="section-title">Menu do Dia & Especialidades</h2>
-            <p class="text-center mb-5">Pratos especiais que mudam diariamente conforme a disponibilidade dos ingredientes</p>
-            
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <span class="special-badge">Menu Executivo</span>
-                        <div class="item-header">
-                            <h3 class="item-title">Menu do Dia Completo</h3>
-                            <div class="item-price">5.500 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Inclui: Entrada + Prato Principal + Sobremesa + Bebida (água/sumo/cerveja). 
-                            Opção vegetariana disponível. Prato principal muda diariamente.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag recomendado">Melhor Custo-Benefício</span>
-                            <span class="item-tag">Completo</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="menu-item">
-                        <span class="special-badge">Especial do Chef</span>
-                        <div class="item-header">
-                            <h3 class="item-title">Prato do Chef (Sob Consulta)</h3>
-                            <div class="item-price">8.000-15.000 Kz</div>
-                        </div>
-                        <p class="item-description">
-                            Experiência gastronómica personalizada preparada pelo Chef Gerard. Menu degustação com 5 a 7 tempos, 
-                            harmonizado com vinhos. Reserva obrigatória com 48h de antecedência.
-                        </p>
-                        <div class="item-tags">
-                            <span class="item-tag">Premium</span>
-                            <span class="item-tag">Experiência Única</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="alert alert-warning mt-4 text-center" style="background-color: rgba(255, 204, 0, 0.1); border-color: var(--primary-yellow);">
-                <i class="fas fa-info-circle me-2"></i>
-                <strong>Nota:</strong> Os preços estão sujeitos a alteração conforme disponibilidade dos ingredientes. 
-                Consulte nosso staff sobre as especialidades do dia.
-            </div>
-        </section>
     </div>
 
-    <!-- Menu Footer -->
-    <div class="menu-footer">
-        <div class="container">
-            <h3>Informações Importantes</h3>
-            
-            <div class="allergen-info">
-                <h5 class="mb-3">Informação sobre Alergénios</h5>
-                <p class="mb-3">
-                    Informe o nosso staff sobre qualquer alergia ou restrição alimentar. 
-                    Podemos adaptar a maioria dos pratos para dietas sem glúten, lactose ou outros alergénios.
-                </p>
-                <div class="row text-start">
-                    <div class="col-md-6">
-                        <p class="mb-2"><i class="fas fa-pepper-hot me-2"></i> 🌶️ = Prato Picante</p>
-                        <p class="mb-2"><i class="fas fa-leaf me-2"></i> 🌿 = Opção Vegetariana</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="mb-2"><i class="fas fa-star me-2"></i> ⭐ = Especialidade da Casa</p>
-                        <p class="mb-2"><i class="fas fa-fire me-2"></i> 🔥 = Preparado na Hora</p>
-                    </div>
-                </div>
-            </div>
-            
-            <p class="mb-4">
-                <strong>Taxa de serviço:</strong> 10% incluído na conta<br>
-                <strong>IVA:</strong> Incluído em todos os preços<br>
-                <strong>Formas de pagamento:</strong> Kwanza, Multicaixa, Visa, Mastercard
-            </p>
-            
-            <a href="reservas.html" class="btn btn-warning btn-lg" style="background-color: var(--primary-yellow); border-color: var(--primary-yellow); color: var(--primary-black); font-weight: 700;">
-                <i class="fas fa-calendar-alt me-2"></i> RESERVAR AGORA
-            </a>
-        </div>
-    </div>
-
-    <!-- Footer -->
+    <!-- ================================================= -->
+    <!-- RODAPÉ - EXATAMENTE COMO NO REFERÊNCIA            -->
+    <!-- ================================================= -->
     <footer class="footer-gerard">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <div style="font-size: 2.5rem; font-weight: 900; color: white; margin-bottom: 20px;">GERARD<span style="color: var(--primary-yellow);">TV</span></div>
-                    <p class="mb-4">Restaurante de comida tradicional angolana desde 2008. Sabores autênticos, qualidade e tradição.</p>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="footer-logo">
+                        <img src="C:\Users\gerar\Music\STREAM\project-test\ad\logo\Logo Restaurante Chamativo Amarelo e Branco (1).png" alt="DANIETA SABORES">
+                        DANIETA<span>SABORES</span>
+                    </div>
+                    <p class="mb-4">
+                        Restaurante de comida tradicional angolana desde 2010.<br>
+                        Sabores autênticos, qualidade e tradição.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
                 
-                <div class="col-lg-6 text-lg-end">
-                    <h5 class="mb-4">Horário de Funcionamento</h5>
-                    <p class="mb-2">Segunda - Sexta: 11:00 - 23:00</p>
-                    <p class="mb-2">Sábado: 12:00 - 00:00</p>
-                    <p class="mb-4">Domingo: 12:00 - 22:00</p>
-                    <p class="mb-0">Delivery: +244 923 456 789</p>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h5 class="mb-4">Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="menu.html" class="text-white text-decoration-none">Menu</a></li>
+                        <li class="mb-2"><a href="reservas.html" class="text-white text-decoration-none">Reservas</a></li>
+                        <li class="mb-2"><a href="galeria.html" class="text-white text-decoration-none">Galeria</a></li>
+                        <li class="mb-2"><a href="delivery.html" class="text-white text-decoration-none">Delivery</a></li>
+                        <li><a href="contactos.html" class="text-white text-decoration-none">Contactos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4">
+                    <h5 class="mb-4">Formas de Pagamento</h5>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <span class="badge bg-light text-dark p-2">Kwanza</span>
+                        <span class="badge bg-light text-dark p-2">Multicaixa</span>
+                        <span class="badge bg-light text-dark p-2">Visa</span>
+                        <span class="badge bg-light text-dark p-2">Mastercard</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5>Newsletter</h5>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Seu email">
+                            <button class="btn btn-warning" type="button" style="background-color: var(--primary-yellow); border-color: var(--primary-yellow); color: var(--primary-black);">Subscrever</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <hr class="my-5 border-secondary">
             
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <p class="mb-0">© 2023 GERARD TV RESTAURANTE. Todos os direitos reservados.</p>
+                <div class="col-md-6">
+                    <p class="mb-0">© 2026 DANIETA SABORES - RESTAURANTE. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">CNI nº 123456789/AO | Sabor que vem de Angola</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- ================================================= -->
+    <!-- BADGE FIXO DE DELIVERY (DO REFERÊNCIA)           -->
+    <!-- ================================================= -->
+    <a href="delivery.html" class="delivery-badge">
+        <i class="fas fa-motorcycle"></i>
+        <span>DELIVERY: +244 929 943 878</span>
+    </a>
+
+    <!-- ================================================= -->
+    <!-- SCRIPTS                                          -->
+    <!-- ================================================= -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Navbar scroll effect
+        // Efeito scroll na navbar
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar-gerard');
             if (window.scrollY > 50) {
@@ -1019,22 +1139,14 @@
             }
         });
 
-        // Category navigation smooth scroll
+        // Navegação suave das categorias
         document.querySelectorAll('.category-nav .nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // Remove active class from all links
-                document.querySelectorAll('.category-nav .nav-link').forEach(l => {
-                    l.classList.remove('active');
-                });
-                
-                // Add active class to clicked link
+                document.querySelectorAll('.category-nav .nav-link').forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
-                
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
-                
                 if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 150,
@@ -1044,22 +1156,17 @@
             });
         });
 
-        // Update active category on scroll
+        // Atualizar categoria activa durante o scroll
         window.addEventListener('scroll', function() {
             const sections = document.querySelectorAll('.menu-section');
             const navLinks = document.querySelectorAll('.category-nav .nav-link');
-            
             let current = '';
-            
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
                 if (scrollY >= (sectionTop - 200)) {
                     current = section.getAttribute('id');
                 }
             });
-            
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === '#' + current) {
@@ -1068,21 +1175,15 @@
             });
         });
 
-        // Form submission simulation
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const title = this.querySelector('.item-title').textContent;
-                const price = this.querySelector('.item-price').textContent;
-                
-                // In a real application, this would add to cart
-                console.log(`Adicionado ao pedido: ${title} - ${price}`);
-                
-                // Visual feedback
-                this.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 300);
-            });
+        // Destacar link activo no cabeçalho (para menu.html)
+        const currentPage = 'menu.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
         });
     </script>
 </body>
