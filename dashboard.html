@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANIETA SABORES - Gestão</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== ESTILOS GLOBAIS ===== */
+        :root {
+            --primary-yellow: #ffcc00;
+            --primary-black: #000000;
+            --primary-white: #ffffff;
+            --dark-gray: #1a1a1a;
+            --light-gray: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            /* Fundo agora é o vídeo – removida a cor sólida */
+            background-color: transparent;
+            padding-top: 80px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ===== VÍDEO DE FUNDO ===== */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Fica atrás de tudo */
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Escurece o vídeo para dar contraste */
+            z-index: -1;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar-dashboard {
+            background: rgba(255, 255, 255, 0.95); /* Leve transparência para ver o vídeo, mas ainda legível */
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--primary-black) !important;
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+            margin-right: 15px;
+        }
+
+        .navbar-brand span {
+            color: var(--primary-yellow);
+        }
+
+        /* ===== CARDS E CONTEÚDO ===== */
+        .stats-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            border-bottom: 4px solid var(--primary-yellow);
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255,204,0,0.3);
+        }
+
+        .stats-icon {
+            font-size: 2.5rem;
+            color: var(--primary-yellow);
+        }
+
+        /* ===== ITENS DO CARDÁPIO ===== */
+        .menu-item-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+
+        .menu-item-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .item-category {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .item-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            color: #28a745;
+            font-weight: 700;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .badge-available {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        .badge-unavailable {
+            background: #dc3545;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        .btn-yellow {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-yellow:hover {
+            background: var(--primary-black);
+            color: var(--primary-yellow);
+        }
+
+        .btn-outline-yellow {
+            border: 2px solid var(--primary-yellow);
+            color: var(--primary-black);
+            background: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .btn-outline-yellow:hover {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-content {
+            border-radius: 20px;
+        }
+
+        .modal-header {
+            border-bottom: 2px solid var(--primary-yellow);
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .menu-item-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .item-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================= -->
+    <!-- VÍDEO DE FUNDO (LOCAL) - COLOQUE O FICHEIRO AQUI  -->
+    <!-- ================================================= -->
+    <div class="video-background">
+        <!-- 
+            [ATENÇÃO] Coloque o seu vídeo na pasta 'video/' com o nome 'restaurante-fundo.mp4'
+            Se o nome ou caminho for diferente, altere o src abaixo.
+        -->
+        <video autoplay muted loop playsinline>
+            <source src="C:\Users\gerar\Music\STREAM\project-test\ad\logo\video-logo.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo HTML5.
+        </video>
+    </div>
+    <div class="overlay"></div>
+
+    <!-- ================================================= -->
+    <!-- NAVBAR DO DASHBOARD                              -->
+    <!-- ================================================= -->
+    <nav class="navbar navbar-dashboard fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="C:\Users\gerar\Music\STREAM\project-test\ad\logo\Logo Restaurante Chamativo Amarelo e Branco.png" alt="DANIETA SABORES" onerror="this.style.display='none'">
+                DANIETA<span>SABORES</span>
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="me-3 d-none d-md-block" id="userDisplay"></span>
+                <a href="admin.html" class="btn btn-outline-yellow btn-sm">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================================================= -->
+    <!-- CONTEÚDO PRINCIPAL                               -->
+    <!-- ================================================= -->
+    <div class="container mt-5 pt-3">
+        
+        <!-- CABEÇALHO DO PAINEL -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="display-5" style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Painel de Gestão</h1>
+                <p class="lead" id="welcomeMessage" style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);"></p>
+            </div>
+        </div>
+
+        <!-- ESTATÍSTICAS RÁPIDAS -->
+        <div class="row mb-5">
+            <div class="col-md-4 mb-3">
+                <div class="stats-card d-flex align-items-center">
+                    <div class="stats-icon me-4">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div>
+                        <h3 id="totalItemsCount">0</h3>
+                        <p class="mb-0 text-muted">Total de Itens</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="stats-card d-flex align-items-center">
+                    <div class="stats-icon me-4">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3 id="availableItemsCount">0</h3>
+                        <p class="mb-0 text-muted">Disponíveis</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="stats-card d-flex align-items-center">
+                    <div class="stats-icon me-4">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div>
+                        <h3 id="unavailableItemsCount">0</h3>
+                        <p class="mb-0 text-muted">Indisponíveis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÁREA PARA CHEF: BOTÃO ADICIONAR NOVO ITEM (SÓ APARECE PARA CHEF) -->
+        <div class="row mb-4" id="chefActions" style="display: none;">
+            <div class="col-12">
+                <button class="btn btn-yellow btn-lg" data-bs-toggle="modal" data-bs-target="#addItemModal">
+                    <i class="fas fa-plus-circle me-2"></i>Adicionar Novo Prato / Bebida
+                </button>
+            </div>
+        </div>
+
+        <!-- LISTA DE ITENS (PRATOS E BEBIDAS) -->
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Cardápio</h3>
+                    <div>
+                        <select id="categoryFilter" class="form-select" style="width: auto; display: inline-block; background: rgba(255,255,255,0.9);">
+                            <option value="todos">Todos</option>
+                            <option value="Prato">Pratos</option>
+                            <option value="Bebida">Bebidas</option>
+                            <option value="Entrada">Entradas</option>
+                            <option value="Sobremesa">Sobremesas</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="menuItemsList">
+                    <!-- Os itens serão carregados aqui via JavaScript -->
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-warning" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================= -->
+    <!-- MODAL ADICIONAR / EDITAR ITEM (SÓ PARA CHEF)     -->
+    <!-- ================================================= -->
+    <div class="modal fade" id="addItemModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Adicionar Novo Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="itemForm">
+                        <input type="hidden" id="itemId" value="">
+                        <div class="mb-3">
+                            <label for="itemName" class="form-label">Nome do Item</label>
+                            <input type="text" class="form-control" id="itemName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="itemCategory" class="form-label">Categoria</label>
+                            <select class="form-select" id="itemCategory" required>
+                                <option value="">Selecione...</option>
+                                <option value="Entrada">Entrada</option>
+                                <option value="Prato">Prato Principal</option>
+                                <option value="Bebida">Bebida</option>
+                                <option value="Sobremesa">Sobremesa</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="itemPrice" class="form-label">Preço (Kz)</label>
+                            <input type="number" class="form-control" id="itemPrice" step="0.01" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="itemDescription" class="form-label">Descrição (opcional)</label>
+                            <textarea class="form-control" id="itemDescription" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="itemAvailable" checked>
+                            <label class="form-check-label" for="itemAvailable">Disponível</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-yellow" id="saveItemBtn">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================= -->
+    <!-- MODAL EXCLUIR ITEM (CONFIRMAÇÃO)                 -->
+    <!-- ================================================= -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja remover este item?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================= -->
+    <!-- SCRIPTS                                          -->
+    <!-- ================================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // =================================================
+        // SISTEMA DE GESTÃO DE CARDÁPIO (mantido igual)
+        // =================================================
+        
+        const defaultItems = [
+            { id: 1, name: 'Muamba de Galinha', category: 'Prato', price: 4500, description: 'Frango, dendém, quiabo, gindungo', available: true },
+            { id: 2, name: 'Calulu de Peixe', category: 'Prato', price: 4200, description: 'Peixe seco, legumes, óleo de palma', available: true },
+            { id: 3, name: 'Cachupa', category: 'Prato', price: 3800, description: 'Milho, feijão, carne, legumes', available: true },
+            { id: 4, name: 'Cerveja Cuca', category: 'Bebida', price: 500, description: 'Cerveja angolana 600ml', available: true },
+            { id: 5, name: 'Sumo de Maracujá', category: 'Bebida', price: 400, description: 'Natural 500ml', available: true },
+            { id: 6, name: 'Doce de Ginguba', category: 'Sobremesa', price: 800, description: 'Cremoso com amendoim', available: true },
+            { id: 7, name: 'Salada de Abacate', category: 'Entrada', price: 1200, description: 'Com gindungo e cebola', available: true },
+        ];
+
+        let menuItems = [];
+
+        function loadMenuItems() {
+            const stored = localStorage.getItem('danieTaMenuItems');
+            if (stored) {
+                menuItems = JSON.parse(stored);
+            } else {
+                menuItems = [...defaultItems];
+                saveMenuItems();
+            }
+        }
+
+        function saveMenuItems() {
+            localStorage.setItem('danieTaMenuItems', JSON.stringify(menuItems));
+        }
+
+        function generateId() {
+            return menuItems.length > 0 ? Math.max(...menuItems.map(i => i.id)) + 1 : 1;
+        }
+
+        function renderMenuItems(filterCategory = 'todos') {
+            const listContainer = document.getElementById('menuItemsList');
+            const userType = localStorage.getItem('danieTaUserType') || 'staff';
+
+            let filtered = menuItems;
+            if (filterCategory !== 'todos') {
+                filtered = menuItems.filter(item => item.category === filterCategory);
+            }
+
+            if (filtered.length === 0) {
+                listContainer.innerHTML = '<div class="alert alert-info">Nenhum item encontrado.</div>';
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(item => {
+                let icon = 'fa-utensils';
+                if (item.category === 'Bebida') icon = 'fa-wine-bottle';
+                else if (item.category === 'Entrada') icon = 'fa-leaf';
+                else if (item.category === 'Sobremesa') icon = 'fa-cake';
+
+                html += `
+                    <div class="menu-item-card" data-id="${item.id}">
+                        <div class="item-info">
+                            <div>
+                                <i class="fas ${icon} fa-2x" style="color: var(--primary-yellow);"></i>
+                            </div>
+                            <div>
+                                <span class="item-category">${item.category}</span>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-price">${item.price.toLocaleString()} Kz</div>
+                                <small class="text-muted">${item.description || ''}</small>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <span class="${item.available ? 'badge-available' : 'badge-unavailable'}">
+                                ${item.available ? 'Disponível' : 'Indisponível'}
+                            </span>
+                            ${userType === 'staff' ? `
+                                <button class="btn btn-sm btn-outline-yellow toggle-availability" data-id="${item.id}">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </button>
+                            ` : ''}
+                            ${userType === 'chef' ? `
+                                <button class="btn btn-sm btn-outline-yellow edit-item" data-id="${item.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger delete-item" data-id="${item.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-yellow toggle-availability" data-id="${item.id}">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            listContainer.innerHTML = html;
+            updateStats();
+            attachItemEvents();
+        }
+
+        function updateStats() {
+            const total = menuItems.length;
+            const available = menuItems.filter(i => i.available).length;
+            const unavailable = total - available;
+            document.getElementById('totalItemsCount').innerText = total;
+            document.getElementById('availableItemsCount').innerText = available;
+            document.getElementById('unavailableItemsCount').innerText = unavailable;
+        }
+
+        function attachItemEvents() {
+            document.querySelectorAll('.toggle-availability').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const id = parseInt(this.dataset.id);
+                    const item = menuItems.find(i => i.id === id);
+                    if (item) {
+                        item.available = !item.available;
+                        saveMenuItems();
+                        renderMenuItems(document.getElementById('categoryFilter').value);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.edit-item').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const id = parseInt(this.dataset.id);
+                    const item = menuItems.find(i => i.id === id);
+                    if (item) {
+                        document.getElementById('modalTitle').innerText = 'Editar Item';
+                        document.getElementById('itemId').value = item.id;
+                        document.getElementById('itemName').value = item.name;
+                        document.getElementById('itemCategory').value = item.category;
+                        document.getElementById('itemPrice').value = item.price;
+                        document.getElementById('itemDescription').value = item.description || '';
+                        document.getElementById('itemAvailable').checked = item.available;
+                        new bootstrap.Modal(document.getElementById('addItemModal')).show();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.delete-item').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const id = parseInt(this.dataset.id);
+                    document.getElementById('confirmDeleteBtn').dataset.id = id;
+                    new bootstrap.Modal(document.getElementById('deleteModal')).show();
+                });
+            });
+        }
+
+        // --- Inicialização ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const userType = localStorage.getItem('danieTaUserType');
+            const userName = localStorage.getItem('danieTaUserName') || 'Utilizador';
+
+            if (!userType) {
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            document.getElementById('userDisplay').innerHTML = `<i class="fas fa-user-circle"></i> ${userName} (${userType === 'chef' ? 'Chef' : 'Funcionário'})`;
+            document.getElementById('welcomeMessage').innerHTML = `Bem-vindo, ${userName}! ${userType === 'chef' ? 'Pode gerir todo o cardápio.' : 'Pode alterar a disponibilidade dos itens.'}`;
+
+            if (userType === 'chef') {
+                document.getElementById('chefActions').style.display = 'block';
+            }
+
+            loadMenuItems();
+            renderMenuItems();
+
+            document.getElementById('categoryFilter').addEventListener('change', function() {
+                renderMenuItems(this.value);
+            });
+
+            document.getElementById('saveItemBtn').addEventListener('click', function() {
+                const id = document.getElementById('itemId').value;
+                const name = document.getElementById('itemName').value.trim();
+                const category = document.getElementById('itemCategory').value;
+                const price = parseFloat(document.getElementById('itemPrice').value);
+                const description = document.getElementById('itemDescription').value.trim();
+                const available = document.getElementById('itemAvailable').checked;
+
+                if (!name || !category || !price) {
+                    alert('Preencha todos os campos obrigatórios.');
+                    return;
+                }
+
+                if (id) {
+                    const index = menuItems.findIndex(i => i.id == id);
+                    if (index !== -1) {
+                        menuItems[index] = { ...menuItems[index], name, category, price, description, available };
+                    }
+                } else {
+                    const newItem = {
+                        id: generateId(),
+                        name,
+                        category,
+                        price,
+                        description,
+                        available
+                    };
+                    menuItems.push(newItem);
+                }
+
+                saveMenuItems();
+                renderMenuItems(document.getElementById('categoryFilter').value);
+                bootstrap.Modal.getInstance(document.getElementById('addItemModal')).hide();
+                document.getElementById('itemForm').reset();
+                document.getElementById('itemId').value = '';
+                document.getElementById('modalTitle').innerText = 'Adicionar Novo Item';
+            });
+
+            document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                menuItems = menuItems.filter(i => i.id !== id);
+                saveMenuItems();
+                renderMenuItems(document.getElementById('categoryFilter').value);
+                bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
+            });
+
+            document.getElementById('addItemModal').addEventListener('hidden.bs.modal', function() {
+                document.getElementById('itemForm').reset();
+                document.getElementById('itemId').value = '';
+                document.getElementById('modalTitle').innerText = 'Adicionar Novo Item';
+            });
+        });
+    </script>
+</body>
+</html>
