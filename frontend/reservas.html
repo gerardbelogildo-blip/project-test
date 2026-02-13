@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservas - Gerard TV Restaurante</title>
+    <title>Reservas - Danieta Sabores</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,12 +18,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
+        /* ===== ESTILOS GLOBAIS (DO SITE DE REFERÊNCIA) ===== */
         :root {
             --primary-yellow: #ffcc00;
             --primary-black: #000000;
             --primary-white: #ffffff;
             --dark-gray: #1a1a1a;
             --light-gray: #f8f9fa;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * {
@@ -42,13 +47,13 @@
             font-weight: 700;
         }
 
-        /* Professional Header */
+        /* ===== CABEÇALHO PROFISSIONAL ===== */
         .navbar-gerard {
             background: rgba(255, 255, 255, 0.98) !important;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             padding: 15px 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: var(--transition);
             border-bottom: 3px solid transparent;
         }
 
@@ -59,17 +64,70 @@
         }
 
         .navbar-brand {
+            display: flex;
+            align-items: center;
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary-black) !important;
+        }
+
+        .navbar-brand img {
+            height: 80px;
+            width: auto;
+            margin-right: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.1) rotate(3deg);
         }
 
         .navbar-brand span {
             color: var(--primary-yellow);
+            margin-left: 5px;
         }
 
-        /* Hero Banner */
+        .nav-item {
+            margin: 0 5px;
+        }
+
+        .nav-link {
+            color: var(--primary-black) !important;
+            font-weight: 600;
+            padding: 10px 15px !important;
+            position: relative;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid var(--primary-yellow);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: -1;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-black) !important;
+            font-weight: 700;
+        }
+
+        /* ===== HERO BANNER PARA RESERVAS ===== */
         .reservation-hero {
             background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
                         url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
@@ -94,7 +152,7 @@
             color: var(--primary-yellow);
         }
 
-        /* Reservation Sections */
+        /* ===== SEÇÕES PRINCIPAIS ===== */
         .section-padding {
             padding: 80px 0;
         }
@@ -273,7 +331,7 @@
             border: 2px solid var(--primary-yellow);
         }
 
-        /* Table Selection */
+        /* Table Selection (sem emojis) */
         .table-options {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -373,7 +431,7 @@
             font-size: 3rem;
         }
 
-        /* Footer */
+        /* ===== RODAPÉ (COPIADO DO REFERÊNCIA) ===== */
         .footer-gerard {
             background: var(--primary-black);
             color: var(--primary-white);
@@ -381,7 +439,90 @@
             margin-top: 100px;
         }
 
-        /* Responsive */
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary-white);
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 70px;
+            width: auto;
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .footer-logo:hover img {
+            transform: scale(1.1);
+        }
+
+        .footer-logo span {
+            color: var(--primary-yellow);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            transform: translateY(-8px) rotate(360deg);
+        }
+
+        /* Delivery Badge */
+        .delivery-badge {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.4);
+            z-index: 1000;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .delivery-badge:hover {
+            background: var(--primary-black);
+            color: var(--primary-yellow);
+            transform: translateY(-5px);
+            animation: none;
+        }
+
+        /* Responsividade */
         @media (max-width: 768px) {
             .reservation-hero {
                 height: 300px;
@@ -411,6 +552,29 @@
             .section-padding {
                 padding: 60px 0;
             }
+
+            .navbar-brand {
+                font-size: 1.4rem;
+            }
+
+            .navbar-brand img {
+                height: 60px;
+            }
+
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+
+            .footer-logo img {
+                height: 55px;
+            }
+
+            .delivery-badge {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -434,10 +598,16 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+
+    <!-- ================================================= -->
+    <!-- CABEÇALHO - DANIETA SABORES                      -->
+    <!-- ================================================= -->
     <nav class="navbar navbar-expand-lg navbar-gerard fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">GERARD<span>TV</span></a>
+            <a class="navbar-brand" href="index.html">
+                <img src="C:\Users\gerar\Music\STREAM\project-test\ad\logo\Logo Restaurante Chamativo Amarelo e Branco.png" alt="DANIETA SABORES">
+                DANIETA<span>SABORES</span>
+            </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -445,40 +615,33 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sobre.html">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="menu.html">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="reservas.html">Reservas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="galeria.html">Galeria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactos.html">Contactos</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sobre.html">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="reservas.html">Reservas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="galeria.html">Galeria</a></li>
+                    <li class="nav-item"><a class="nav-link" href="delivery.html">Delivery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Banner -->
+    <!-- ================================================= -->
+    <!-- HERO BANNER - RESERVE SUA MESA                   -->
+    <!-- ================================================= -->
     <section class="reservation-hero">
         <div class="container">
             <div class="reservation-hero-content">
                 <h1>Reserve Sua Mesa</h1>
-                <p class="lead">Garanta sua experiência gastronómica no melhor restaurante de comida tradicional angolana de Luanda</p>
+                <p class="lead">Garanta sua experiência gastronómica no Danieta Sabores – tradição angolana em Luanda</p>
             </div>
         </div>
     </section>
 
-    <!-- Info Cards -->
+    <!-- ================================================= -->
+    <!-- INFO CARDS                                       -->
+    <!-- ================================================= -->
     <section class="section-padding">
         <div class="container">
             <div class="row g-4">
@@ -515,7 +678,9 @@
         </div>
     </section>
 
-    <!-- Reservation Form -->
+    <!-- ================================================= -->
+    <!-- FORMULÁRIO DE RESERVA                            -->
+    <!-- ================================================= -->
     <section class="section-padding bg-light">
         <div class="container">
             <h2 class="section-title">Faça Sua Reserva Online</h2>
@@ -529,7 +694,7 @@
                 <div class="form-body">
                     <form id="reservationForm">
                         <div class="row g-4">
-                            <!-- Step 1: Date & Time -->
+                            <!-- Step 1: Data e Horário -->
                             <div class="col-12">
                                 <h5 class="mb-4">1. Data e Horário</h5>
                                 <div class="calendar-container">
@@ -564,7 +729,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Step 2: Party Size & Table -->
+                            <!-- Step 2: Número de Pessoas e Tipo de Mesa -->
                             <div class="col-12">
                                 <h5 class="mb-4">2. Número de Pessoas e Tipo de Mesa</h5>
                                 <div class="row g-4">
@@ -587,19 +752,19 @@
                                         <label class="form-label">Tipo de Mesa Preferido</label>
                                         <div class="table-options">
                                             <div class="table-option" data-table="standard">
-                                                <span class="table-icon">🪑</span>
+                                                <span class="table-icon"><i class="fas fa-chair"></i></span>
                                                 <span>Standard</span>
                                             </div>
                                             <div class="table-option" data-table="window">
-                                                <span class="table-icon">🪟</span>
+                                                <span class="table-icon"><i class="fas fa-window-maximize"></i></span>
                                                 <span>Janela</span>
                                             </div>
                                             <div class="table-option" data-table="private">
-                                                <span class="table-icon">🚪</span>
+                                                <span class="table-icon"><i class="fas fa-door-closed"></i></span>
                                                 <span>Privada</span>
                                             </div>
                                             <div class="table-option" data-table="terrace">
-                                                <span class="table-icon">🌿</span>
+                                                <span class="table-icon"><i class="fas fa-umbrella-beach"></i></span>
                                                 <span>Terraço</span>
                                             </div>
                                         </div>
@@ -608,7 +773,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Step 3: Personal Details -->
+                            <!-- Step 3: Dados Pessoais -->
                             <div class="col-12">
                                 <h5 class="mb-4">3. Dados Pessoais</h5>
                                 <div class="row g-4">
@@ -646,7 +811,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Step 4: Confirmation -->
+                            <!-- Step 4: Confirmação -->
                             <div class="col-12">
                                 <div class="form-check mb-4">
                                     <input class="form-check-input" type="checkbox" id="termsCheck" required>
@@ -673,7 +838,9 @@
         </div>
     </section>
 
-    <!-- Policies Section -->
+    <!-- ================================================= -->
+    <!-- POLÍTICAS E INFORMAÇÕES                          -->
+    <!-- ================================================= -->
     <section class="section-padding">
         <div class="container">
             <h2 class="section-title">Políticas e Informações</h2>
@@ -726,7 +893,7 @@
                     <div>
                         <h6 class="mb-2">Informação Importante</h6>
                         <p class="mb-0">Durante feriados e fins de semana, recomendamos fazer reserva com antecedência. 
-                        Todas as reservas estão sujeitas a confirmação por nossa equipe. Você receberá um SMS ou 
+                        Todas as reservas estão sujeitas a confirmação por nossa equipa. Você receberá um SMS ou 
                         email de confirmação dentro de 2 horas úteis.</p>
                     </div>
                 </div>
@@ -734,7 +901,9 @@
         </div>
     </section>
 
-    <!-- Alternative Methods -->
+    <!-- ================================================= -->
+    <!-- OUTRAS FORMAS DE RESERVA                          -->
+    <!-- ================================================= -->
     <section class="section-padding bg-light">
         <div class="container">
             <h2 class="section-title">Outras Formas de Reserva</h2>
@@ -772,9 +941,9 @@
                             <i class="fas fa-envelope"></i>
                         </div>
                         <h4>Email</h4>
-                        <p class="mb-3">Envie um email para nossa equipe:</p>
-                        <a href="mailto:reservas@gerardtv.ao" class="btn btn-primary w-100">
-                            <i class="fas fa-envelope me-2"></i> reservas@gerardtv.ao
+                        <p class="mb-3">Envie um email para nossa equipa:</p>
+                        <a href="mailto:reservas@danietasabores.ao" class="btn btn-primary w-100">
+                            <i class="fas fa-envelope me-2"></i> reservas@danietasabores.ao
                         </a>
                     </div>
                 </div>
@@ -782,7 +951,9 @@
         </div>
     </section>
 
-    <!-- Confirmation Modal -->
+    <!-- ================================================= -->
+    <!-- MODAL DE CONFIRMAÇÃO                             -->
+    <!-- ================================================= -->
     <div class="confirmation-modal" id="confirmationModal">
         <div class="confirmation-content">
             <div class="confirmation-icon">
@@ -813,45 +984,83 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ================================================= -->
+    <!-- RODAPÉ - DANIETA SABORES                         -->
+    <!-- ================================================= -->
     <footer class="footer-gerard">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-5 mb-lg-0">
-                    <div style="font-size: 2.5rem; font-weight: 900; color: white; margin-bottom: 20px;">GERARD<span style="color: var(--primary-yellow);">TV</span></div>
-                    <p class="mb-4">Restaurante de comida tradicional angolana desde 2008. Sabores autênticos, qualidade e tradição.</p>
+                    <div class="footer-logo">
+                        <img src="C:\Users\gerar\Music\STREAM\project-test\ad\logo\Logo Restaurante Chamativo Amarelo e Branco (1).png" alt="DANIETA SABORES">
+                        DANIETA<span>SABORES</span>
+                    </div>
+                    <p class="mb-4">
+                        Restaurante de comida tradicional angolana desde 2010.<br>
+                        Sabores autênticos, qualidade e tradição.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
                 
                 <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h5 class="mb-4">Horário para Reservas</h5>
-                    <p class="mb-2">Segunda - Sexta: 11:00 - 23:00</p>
-                    <p class="mb-2">Sábado: 12:00 - 00:00</p>
-                    <p class="mb-4">Domingo: 12:00 - 22:00</p>
-                    <p class="mb-0"><strong>Telefone:</strong> +244 923 456 789</p>
+                    <h5 class="mb-4">Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="sobre.html" class="text-white text-decoration-none">Sobre</a></li>
+                        <li class="mb-2"><a href="menu.html" class="text-white text-decoration-none">Menu</a></li>
+                        <li class="mb-2"><a href="reservas.html" class="text-white text-decoration-none">Reservas</a></li>
+                        <li class="mb-2"><a href="delivery.html" class="text-white text-decoration-none">Delivery</a></li>
+                        <li><a href="contactos.html" class="text-white text-decoration-none">Contactos</a></li>
+                    </ul>
                 </div>
                 
                 <div class="col-lg-4">
-                    <h5 class="mb-4">Localização</h5>
-                    <p class="mb-2">Bairro da Maianga, Rua dos Restaurantes, Nº 123</p>
-                    <p class="mb-2">Luanda, Angola</p>
-                    <p class="mb-4">Estacionamento privado disponível</p>
-                    <a href="localizacao.html" class="btn btn-outline-light">
-                        <i class="fas fa-map-marker-alt me-2"></i> Ver no Mapa
-                    </a>
+                    <h5 class="mb-4">Formas de Pagamento</h5>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <span class="badge bg-light text-dark p-2">Kwanza</span>
+                        <span class="badge bg-light text-dark p-2">Multicaixa</span>
+                        <span class="badge bg-light text-dark p-2">Visa</span>
+                        <span class="badge bg-light text-dark p-2">Mastercard</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5>Newsletter</h5>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Seu email">
+                            <button class="btn btn-warning" type="button" style="background-color: var(--primary-yellow); border-color: var(--primary-yellow); color: var(--primary-black);">Subscrever</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <hr class="my-5 border-secondary">
             
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <p class="mb-0">© 2023 GERARD TV RESTAURANTE. Todos os direitos reservados.</p>
+                <div class="col-md-6">
+                    <p class="mb-0">© 2026 DANIETA SABORES - RESTAURANTE. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">CNI nº 123456789/AO | Sabor que vem de Angola</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- ================================================= -->
+    <!-- BADGE FIXO DE DELIVERY                           -->
+    <!-- ================================================= -->
+    <a href="delivery.html" class="delivery-badge">
+        <i class="fas fa-motorcycle"></i>
+        <span>DELIVERY: +244 923 456 789</span>
+    </a>
+
+    <!-- ================================================= -->
+    <!-- SCRIPTS                                          -->
+    <!-- ================================================= -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
@@ -865,6 +1074,17 @@
             }
         });
 
+        // Destacar link activo
+        const currentPage = 'reservas.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
         // Calendar functionality
         let currentDate = new Date();
         let selectedDate = null;
@@ -875,20 +1095,15 @@
             const calendarDays = document.getElementById('calendarDays');
             const currentMonth = document.getElementById('currentMonth');
             
-            // Clear previous calendar
             calendarDays.innerHTML = '';
             
-            // Set month name
             const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
                               "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
             currentMonth.textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
             
-            // Get first day of month
             const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-            // Get last day of month
             const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
             
-            // Add day names
             const dayNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
             dayNames.forEach(day => {
                 const dayElement = document.createElement('div');
@@ -897,14 +1112,12 @@
                 calendarDays.appendChild(dayElement);
             });
             
-            // Add empty cells for days before first day
             for (let i = 0; i < firstDay.getDay(); i++) {
                 const emptyDay = document.createElement('div');
                 emptyDay.className = 'calendar-day disabled';
                 calendarDays.appendChild(emptyDay);
             }
             
-            // Add days of month
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             
@@ -915,17 +1128,14 @@
                 dayElement.textContent = day;
                 dayElement.dataset.date = dayDate.toISOString().split('T')[0];
                 
-                // Check if it's today
                 if (dayDate.getTime() === today.getTime()) {
                     dayElement.classList.add('today');
                 }
                 
-                // Check if it's selected
                 if (selectedDate && dayDate.getTime() === selectedDate.getTime()) {
                     dayElement.classList.add('selected');
                 }
                 
-                // Disable past dates
                 if (dayDate < today) {
                     dayElement.classList.add('disabled');
                 } else {
@@ -940,19 +1150,24 @@
             selectedDate = date;
             renderCalendar(currentDate);
             
-            // Update hidden input
-            document.querySelector('input[name="date"]').value = date.toISOString().split('T')[0];
+            const hiddenDate = document.querySelector('input[name="date"]');
+            if (!hiddenDate) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'date';
+                document.getElementById('reservationForm').appendChild(input);
+                input.value = date.toISOString().split('T')[0];
+            } else {
+                hiddenDate.value = date.toISOString().split('T')[0];
+            }
         }
 
         // Time slot selection
         document.querySelectorAll('.time-slot').forEach(slot => {
             slot.addEventListener('click', function() {
-                // Remove selected class from all slots
                 document.querySelectorAll('.time-slot').forEach(s => {
                     s.classList.remove('selected');
                 });
-                
-                // Add selected class to clicked slot
                 this.classList.add('selected');
                 selectedTime = this.dataset.time;
                 document.getElementById('selectedTime').value = selectedTime;
@@ -962,12 +1177,9 @@
         // Table selection
         document.querySelectorAll('.table-option').forEach(option => {
             option.addEventListener('click', function() {
-                // Remove selected class from all options
                 document.querySelectorAll('.table-option').forEach(o => {
                     o.classList.remove('selected');
                 });
-                
-                // Add selected class to clicked option
                 this.classList.add('selected');
                 selectedTable = this.dataset.table;
                 document.getElementById('selectedTable').value = selectedTable;
@@ -989,7 +1201,6 @@
         document.getElementById('reservationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Validate form
             if (!selectedDate) {
                 alert('Por favor, selecione uma data.');
                 return;
@@ -1006,22 +1217,18 @@
                 return;
             }
             
-            // Update modal with reservation details
             const dateStr = selectedDate.toLocaleDateString('pt-AO');
             document.getElementById('modalDate').textContent = dateStr;
             document.getElementById('modalTime').textContent = selectedTime;
             document.getElementById('modalPeople').textContent = partySize === '1' ? '1 pessoa' : `${partySize} pessoas`;
             
-            // Show confirmation modal
             document.getElementById('confirmationModal').style.display = 'flex';
             
-            // In a real application, you would send the form data to a server here
             console.log('Form submitted:', {
                 date: selectedDate.toISOString().split('T')[0],
                 time: selectedTime,
                 partySize: partySize,
                 tableType: selectedTable,
-                // ... other form data
             });
         });
 
@@ -1030,12 +1237,10 @@
             document.getElementById('confirmationModal').style.display = 'none';
             document.getElementById('reservationForm').reset();
             
-            // Reset selections
             selectedDate = null;
             selectedTime = null;
             selectedTable = null;
             
-            // Reset UI
             document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
             document.querySelectorAll('.table-option').forEach(o => o.classList.remove('selected'));
             renderCalendar(currentDate);
