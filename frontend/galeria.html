@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria - Gerard TV Restaurante</title>
+    <title>Galeria - Danieta Sabores</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,12 +21,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
+        /* ===== ESTILOS GLOBAIS (IGUAL AO INDEX) ===== */
         :root {
             --primary-yellow: #ffcc00;
             --primary-black: #000000;
             --primary-white: #ffffff;
             --dark-gray: #1a1a1a;
             --light-gray: #f8f9fa;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * {
@@ -45,13 +50,63 @@
             font-weight: 700;
         }
 
-        /* Professional Header */
+        /* ===== OVERLAY DE BOAS-VINDAS ===== */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .welcome-content {
+            text-align: center;
+            color: var(--primary-white);
+            max-width: 90%;
+        }
+
+        .welcome-logo {
+            max-width: 600px;
+            width: 90%;
+            height: auto;
+            margin-bottom: 30px;
+            animation: pulseLogo 2s infinite alternate;
+        }
+
+        @keyframes pulseLogo {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .welcome-subtitle {
+            font-size: 2rem;
+            color: var(--primary-yellow);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ===== CABEÇALHO PROFISSIONAL (PRETO) ===== */
         .navbar-gerard {
-            background: rgba(255, 255, 255, 0.98) !important;
+            background: rgba(0, 0, 0, 0.95) !important;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
             padding: 15px 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: var(--transition);
             border-bottom: 3px solid transparent;
         }
 
@@ -62,17 +117,70 @@
         }
 
         .navbar-brand {
+            display: flex;
+            align-items: center;
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: 2rem;
-            color: var(--primary-black) !important;
+            font-size: 1.8rem;
+            color: var(--primary-white) !important;
+        }
+
+        .navbar-brand img {
+            height: 80px;
+            width: auto;
+            margin-right: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.1) rotate(3deg);
         }
 
         .navbar-brand span {
             color: var(--primary-yellow);
+            margin-left: 5px;
         }
 
-        /* Hero Banner */
+        .nav-item {
+            margin: 0 5px;
+        }
+
+        .nav-link {
+            color: var(--primary-white) !important;
+            font-weight: 600;
+            padding: 10px 15px !important;
+            position: relative;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid var(--primary-yellow);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: -1;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-white) !important;
+            font-weight: 700;
+        }
+
+        /* ===== HERO BANNER (GALERIA) ===== */
         .gallery-hero {
             background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
                         url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
@@ -97,7 +205,12 @@
             color: var(--primary-yellow);
         }
 
-        /* Gallery Sections */
+        .gallery-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* ===== SEÇÕES PRINCIPAIS ===== */
         .section-padding {
             padding: 80px 0;
         }
@@ -121,7 +234,7 @@
             border-radius: 2px;
         }
 
-        /* Category Filter */
+        /* ===== FILTROS ===== */
         .category-filter {
             background: var(--primary-white);
             padding: 20px;
@@ -158,7 +271,7 @@
             color: var(--primary-black);
         }
 
-        /* Gallery Grid */
+        /* ===== GALERIA GRID ===== */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -259,7 +372,7 @@
             transform: scale(1);
         }
 
-        /* Video Gallery */
+        /* ===== VÍDEOS ===== */
         .video-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -331,7 +444,92 @@
             font-weight: 600;
         }
 
-        /* Gallery Modal (Custom) */
+        /* ===== ESTATÍSTICAS ===== */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--primary-white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-yellow);
+            margin-bottom: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-black);
+            margin-bottom: 10px;
+        }
+
+        /* ===== INSTAGRAM FEED ===== */
+        .instagram-feed {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            padding: 60px 0;
+            margin: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .instagram-feed::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .instagram-content {
+            position: relative;
+            z-index: 2;
+            color: var(--primary-white);
+            text-align: center;
+        }
+
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .instagram-item {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .instagram-item:hover {
+            transform: scale(1.05);
+        }
+
+        .instagram-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== MODAL DA GALERIA ===== */
         .gallery-modal {
             display: none;
             position: fixed;
@@ -354,12 +552,8 @@
         }
 
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
@@ -434,92 +628,7 @@
             right: -70px;
         }
 
-        /* Instagram Feed */
-        .instagram-feed {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            padding: 60px 0;
-            margin: 80px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .instagram-feed::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-        }
-
-        .instagram-content {
-            position: relative;
-            z-index: 2;
-            color: var(--primary-white);
-            text-align: center;
-        }
-
-        .instagram-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 40px;
-        }
-
-        .instagram-item {
-            border-radius: 10px;
-            overflow: hidden;
-            height: 150px;
-            transition: all 0.3s ease;
-        }
-
-        .instagram-item:hover {
-            transform: scale(1.05);
-        }
-
-        .instagram-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Gallery Stats */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 40px 20px;
-            background: var(--primary-white);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .stat-icon {
-            font-size: 2.5rem;
-            color: var(--primary-yellow);
-            margin-bottom: 20px;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--primary-black);
-            margin-bottom: 10px;
-        }
-
-        /* Footer */
+        /* ===== RODAPÉ (IGUAL AO INDEX) ===== */
         .footer-gerard {
             background: var(--primary-black);
             color: var(--primary-white);
@@ -527,40 +636,140 @@
             margin-top: 80px;
         }
 
-        /* Responsive */
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary-white);
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 70px;
+            width: auto;
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .footer-logo:hover img {
+            transform: scale(1.1);
+        }
+
+        .footer-logo span {
+            color: var(--primary-yellow);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            transform: translateY(-8px) rotate(360deg);
+        }
+
+        /* Delivery Badge */
+        .delivery-badge {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.4);
+            z-index: 1000;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .delivery-badge:hover {
+            background: var(--primary-black);
+            color: var(--primary-yellow);
+            transform: translateY(-5px);
+            animation: none;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
             .gallery-hero {
                 height: 300px;
                 margin-bottom: 40px;
             }
-            
             .gallery-hero h1 {
                 font-size: 2.5rem;
             }
-            
             .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 20px;
             }
-            
             .gallery-item {
                 height: 250px;
             }
-            
             .category-filter {
                 top: 70px;
             }
-            
             .modal-nav {
                 display: none;
             }
-            
             body {
                 padding-top: 70px;
             }
-            
             .section-padding {
                 padding: 60px 0;
+            }
+            .navbar-brand {
+                font-size: 1.4rem;
+            }
+            .navbar-brand img {
+                height: 60px;
+            }
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+            .footer-logo img {
+                height: 55px;
+            }
+            .delivery-badge {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            .welcome-logo {
+                max-width: 300px;
+            }
+            .welcome-subtitle {
+                font-size: 1.5rem;
             }
         }
 
@@ -568,20 +777,16 @@
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
-            
             .filter-buttons {
                 gap: 10px;
             }
-            
             .filter-btn {
                 padding: 10px 15px;
                 font-size: 0.9rem;
             }
-            
             .video-gallery {
                 grid-template-columns: 1fr;
             }
-            
             .instagram-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -589,10 +794,26 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+
+    <!-- ================================================= -->
+    <!-- OVERLAY DE BOAS-VINDAS (APENAS LOGO)              -->
+    <!-- ================================================= -->
+    <div class="welcome-overlay">
+        <div class="welcome-content">
+            <img src="C:\\Users\\gerar\\Music\\STREAM\\project-test\\ad\\logo\\ad_new\\1.png" alt="DANIETA SABORES" class="welcome-logo">
+            <p class="welcome-subtitle">DANIETA SABORES RESTAURANTE</p>
+        </div>
+    </div>
+
+    <!-- ================================================= -->
+    <!-- CABEÇALHO - DANIETA SABORES (PRETO)              -->
+    <!-- ================================================= -->
     <nav class="navbar navbar-expand-lg navbar-gerard fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">GERARD<span>TV</span></a>
+            <a class="navbar-brand" href="index.html">
+                <img src="C:\\Users\\gerar\\Music\\STREAM\\project-test\\ad\\logo\\ad_new\\1.png" alt="DANIETA SABORES">
+                DANIETA<span>SABORES</span>
+            </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -600,40 +821,33 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sobre.html">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="menu.html">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="reservas.html">Reservas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="galeria.html">Galeria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactos.html">Contactos</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sobre.html">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="galeria.html">Galeria</a></li>
+                    <li class="nav-item"><a class="nav-link" href="delivery.html">Delivery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Banner -->
+    <!-- ================================================= -->
+    <!-- HERO BANNER                                       -->
+    <!-- ================================================= -->
     <section class="gallery-hero">
         <div class="container">
             <div class="gallery-hero-content">
                 <h1>Nossa Galeria</h1>
-                <p class="lead">Explore a experiência Gerard TV através das nossas fotografias e vídeos</p>
+                <p class="lead">Explore a experiência Danieta Sabores através das nossas fotografias e vídeos</p>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Categories -->
+    <!-- ================================================= -->
+    <!-- GALERIA DE IMAGENS                                -->
+    <!-- ================================================= -->
     <section class="section-padding">
         <div class="container">
             <h2 class="section-title">Galeria de Imagens</h2>
@@ -653,7 +867,7 @@
 
             <!-- Gallery Grid -->
             <div class="gallery-grid" id="galleryContainer">
-                <!-- Pratos Images -->
+                <!-- Pratos -->
                 <div class="gallery-item" data-category="pratos">
                     <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Muamba de Galinha" class="gallery-image">
@@ -680,7 +894,7 @@
                     </div>
                 </div>
 
-                <!-- Ambiente Images -->
+                <!-- Ambiente -->
                 <div class="gallery-item" data-category="ambiente">
                     <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Sala Principal" class="gallery-image">
@@ -707,7 +921,7 @@
                     </div>
                 </div>
 
-                <!-- Eventos Images -->
+                <!-- Eventos -->
                 <div class="gallery-item" data-category="eventos">
                     <img src="https://images.unsplash.com/photo-1549451371-64aa98a6f660?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Casamento" class="gallery-image">
@@ -734,21 +948,21 @@
                     </div>
                 </div>
 
-                <!-- Equipa Images -->
+                <!-- Equipa -->
                 <div class="gallery-item" data-category="equipa">
                     <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                         alt="Chef Gerard" class="gallery-image">
+                         alt="Chef Danieta" class="gallery-image">
                     <div class="gallery-overlay">
                         <span class="gallery-category">Equipa</span>
-                        <h4 class="gallery-title">Chef Gerard em Ação</h4>
-                        <p class="gallery-description">Nosso chef executivo preparando especialidades</p>
+                        <h4 class="gallery-title">Chef Danieta em Ação</h4>
+                        <p class="gallery-description">Nossa chef executiva preparando especialidades</p>
                     </div>
                     <div class="gallery-icon">
                         <i class="fas fa-expand-alt"></i>
                     </div>
                 </div>
 
-                <!-- Ingredientes Images -->
+                <!-- Ingredientes -->
                 <div class="gallery-item" data-category="ingredientes">
                     <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Ingredientes Frescos" class="gallery-image">
@@ -762,7 +976,7 @@
                     </div>
                 </div>
 
-                <!-- Additional Images -->
+                <!-- Mais Pratos -->
                 <div class="gallery-item" data-category="pratos">
                     <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Mufete Tradicional" class="gallery-image">
@@ -776,12 +990,13 @@
                     </div>
                 </div>
 
+                <!-- Mais Ambiente -->
                 <div class="gallery-item" data-category="ambiente">
                     <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Bar do Restaurante" class="gallery-image">
                     <div class="gallery-overlay">
                         <span class="gallery-category">Ambiente</span>
-                        <h4 class="gallery-title">Bar Gerard TV</h4>
+                        <h4 class="gallery-title">Bar Danieta</h4>
                         <p class="gallery-description">Ambiente acolhedor para drinks e conversas</p>
                     </div>
                     <div class="gallery-icon">
@@ -789,6 +1004,7 @@
                     </div>
                 </div>
 
+                <!-- Mais Eventos -->
                 <div class="gallery-item" data-category="eventos">
                     <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Aniversário" class="gallery-image">
@@ -802,6 +1018,7 @@
                     </div>
                 </div>
 
+                <!-- Mais Ingredientes -->
                 <div class="gallery-item" data-category="ingredientes">
                     <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Temperos" class="gallery-image">
@@ -818,7 +1035,9 @@
         </div>
     </section>
 
-    <!-- Gallery Stats -->
+    <!-- ================================================= -->
+    <!-- ESTATÍSTICAS                                      -->
+    <!-- ================================================= -->
     <section class="section-padding bg-light">
         <div class="container">
             <div class="stats-container">
@@ -826,9 +1045,9 @@
                     <div class="stat-icon">
                         <i class="fas fa-camera"></i>
                     </div>
-                    <div class="stat-number">1,500+</div>
+                    <div class="stat-number">1.500+</div>
                     <h5>Fotografias</h5>
-                    <p>Registros da nossa história</p>
+                    <p>Registos da nossa história</p>
                 </div>
                 
                 <div class="stat-card">
@@ -861,7 +1080,9 @@
         </div>
     </section>
 
-    <!-- Video Gallery -->
+    <!-- ================================================= -->
+    <!-- VÍDEOS E DEPOIMENTOS                              -->
+    <!-- ================================================= -->
     <section class="section-padding">
         <div class="container">
             <h2 class="section-title">Vídeos e Depoimentos</h2>
@@ -877,7 +1098,7 @@
                         </div>
                     </div>
                     <div class="video-info">
-                        <h4 class="video-title">Documentário: A História Gerard TV</h4>
+                        <h4 class="video-title">Documentário: A História Danieta Sabores</h4>
                         <p class="text-muted mb-2">Conheça nossa jornada de 15 anos</p>
                         <span class="video-duration">15:42 min</span>
                     </div>
@@ -916,12 +1137,14 @@
         </div>
     </section>
 
-    <!-- Instagram Feed -->
+    <!-- ================================================= -->
+    <!-- INSTAGRAM FEED                                    -->
+    <!-- ================================================= -->
     <section class="instagram-feed">
         <div class="container">
             <div class="instagram-content">
                 <h2 class="mb-4">Siga-nos no Instagram</h2>
-                <p class="mb-4">@gerardtv_restaurante | #GerardTV #CulináriaAngolana</p>
+                <p class="mb-4">@danietasabores | #DanietaSabores #CulináriaAngolana</p>
                 
                 <div class="instagram-grid">
                     <a href="https://instagram.com" target="_blank" class="instagram-item">
@@ -950,14 +1173,16 @@
                     </a>
                 </div>
                 
-                <a href="https://instagram.com/gerardtv_restaurante" target="_blank" class="btn btn-light mt-4">
+                <a href="https://instagram.com/danietasabores" target="_blank" class="btn btn-light mt-4">
                     <i class="fab fa-instagram me-2"></i> Ver Mais no Instagram
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Modal -->
+    <!-- ================================================= -->
+    <!-- MODAL DA GALERIA                                  -->
+    <!-- ================================================= -->
     <div class="gallery-modal" id="galleryModal">
         <div class="modal-content">
             <button class="modal-close">
@@ -985,7 +1210,9 @@
         </div>
     </div>
 
-    <!-- Video Modal -->
+    <!-- ================================================= -->
+    <!-- MODAL DE VÍDEO                                    -->
+    <!-- ================================================= -->
     <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -1002,33 +1229,46 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ================================================= -->
+    <!-- RODAPÉ - DANIETA SABORES                          -->
+    <!-- ================================================= -->
     <footer class="footer-gerard">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-5 mb-lg-0">
-                    <div style="font-size: 2.5rem; font-weight: 900; color: white; margin-bottom: 20px;">GERARD<span style="color: var(--primary-yellow);">TV</span></div>
-                    <p class="mb-4">Restaurante de comida tradicional angolana desde 2008. Sabores autênticos, qualidade e tradição.</p>
-                    <div class="social-icons d-flex gap-3">
-                        <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-facebook fa-lg"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-youtube fa-lg"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-tiktok fa-lg"></i></a>
+                    <div class="footer-logo">
+                        <img src="C:\\Users\\gerar\\Music\\STREAM\\project-test\\ad\\logo\\ad_new\\1.png" alt="DANIETA SABORES">
+                        DANIETA<span>SABORES</span>
+                    </div>
+                    <p class="mb-4">
+                        Restaurante de comida tradicional angolana desde 2010.<br>
+                        Sabores autênticos, qualidade e tradição.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
                 <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h5 class="mb-4">Visite-nos</h5>
-                    <p class="mb-2">Bairro da Maianga, Rua dos Restaurantes, Nº 123</p>
-                    <p class="mb-4">Luanda, Angola</p>
-                    <p class="mb-0"><strong>Horário:</strong> Segunda - Domingo: 11:00 - 23:00</p>
+                    <h5 class="mb-4">Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="sobre.html" class="text-white text-decoration-none">Sobre</a></li>
+                        <li class="mb-2"><a href="menu.html" class="text-white text-decoration-none">Menu</a></li>
+                        <li class="mb-2"><a href="reservas.html" class="text-white text-decoration-none">Reservas</a></li>
+                        <li class="mb-2"><a href="galeria.html" class="text-white text-decoration-none">Galeria</a></li>
+                        <li><a href="contactos.html" class="text-white text-decoration-none">Contactos</a></li>
+                    </ul>
                 </div>
                 
                 <div class="col-lg-4">
                     <h5 class="mb-4">Partilhe Suas Fotos</h5>
-                    <p class="mb-4">Partilhe suas experiências no Gerard TV usando a hashtag:</p>
+                    <p class="mb-4">Partilhe suas experiências no Danieta Sabores usando a hashtag:</p>
                     <div class="hashtag-box bg-dark p-3 rounded text-center mb-4">
-                        <h3 class="text-warning mb-0">#GerardTV</h3>
+                        <h3 class="text-warning mb-0">#DanietaSabores</h3>
                     </div>
                     <a href="contactos.html" class="btn btn-outline-light">
                         <i class="fas fa-envelope me-2"></i> Envie Suas Fotos
@@ -1039,21 +1279,44 @@
             <hr class="my-5 border-secondary">
             
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <p class="mb-0">© 2023 GERARD TV RESTAURANTE. Todos os direitos reservados. | Fotos sujeitas a direitos autorais.</p>
+                <div class="col-md-6">
+                    <p class="mb-0">© 2026 DANIETA SABORES - RESTAURANTE. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">CNI nº 123456789/AO | Sabor que vem de Angola</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- ================================================= -->
+    <!-- BADGE FIXO DE DELIVERY                           -->
+    <!-- ================================================= -->
+    <a href="delivery.html" class="delivery-badge">
+        <i class="fas fa-motorcycle"></i>
+        <span>DELIVERY: +244 929 943 878</span>
+    </a>
+
+    <!-- ================================================= -->
+    <!-- SCRIPTS                                          -->
+    <!-- ================================================= -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Lightbox2 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
     
     <script>
-        // Navbar scroll effect
+        // ANIMAÇÃO DE BOAS-VINDAS
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.querySelector('.welcome-overlay').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.welcome-overlay').style.display = 'none';
+                }, 1000);
+            }, 3000);
+        });
+
+        // EFEITO SCROLL NAVBAR
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar-gerard');
             if (window.scrollY > 50) {
@@ -1063,21 +1326,27 @@
             }
         });
 
-        // Gallery Filtering
+        // DESTACAR LINK ACTIVO
+        const currentPage = 'galeria.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // GALLERY FILTERING
         const filterButtons = document.querySelectorAll('.filter-btn');
         const galleryItems = document.querySelectorAll('.gallery-item');
 
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // Remove active class from all buttons
                 filterButtons.forEach(btn => btn.classList.remove('active'));
-                
-                // Add active class to clicked button
                 this.classList.add('active');
-                
                 const filterValue = this.getAttribute('data-filter');
                 
-                // Filter gallery items
                 galleryItems.forEach(item => {
                     if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                         item.style.display = 'block';
@@ -1096,7 +1365,7 @@
             });
         });
 
-        // Gallery Modal
+        // GALLERY MODAL
         const galleryModal = document.getElementById('galleryModal');
         const modalImage = document.getElementById('modalImage');
         const modalTitle = document.getElementById('modalTitle');
@@ -1153,14 +1422,12 @@
         modalNext.addEventListener('click', showNextImage);
         modalPrev.addEventListener('click', showPrevImage);
 
-        // Close modal on outside click
         galleryModal.addEventListener('click', function(e) {
             if (e.target === galleryModal) {
                 closeModal();
             }
         });
 
-        // Keyboard navigation
         document.addEventListener('keydown', function(e) {
             if (galleryModal.classList.contains('active')) {
                 if (e.key === 'Escape') closeModal();
@@ -1169,7 +1436,7 @@
             }
         });
 
-        // Video Modal
+        // VIDEO MODAL
         const videoButtons = document.querySelectorAll('.video-play-btn');
         const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
         const videoFrame = document.getElementById('videoFrame');
@@ -1186,38 +1453,34 @@
             });
         });
 
-        // Clear video when modal closes
         document.getElementById('videoModal').addEventListener('hidden.bs.modal', function() {
             videoFrame.src = '';
         });
 
-        // Lazy loading images
-        const imageObserver = new IntersectionObserver((entries, observer) => {
+        // LAZY LOADING IMAGES
+        const imageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
                     img.src = img.dataset.src;
                     img.classList.add('loaded');
-                    observer.unobserve(img);
+                    imageObserver.unobserve(img);
                 }
             });
         });
 
-        // Add data-src attribute for lazy loading
         document.querySelectorAll('.gallery-image').forEach(img => {
             img.dataset.src = img.src;
             img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"%3E%3C/svg%3E';
             imageObserver.observe(img);
         });
 
-        // Smooth scrolling
+        // SMOOTH SCROLLING
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
@@ -1228,12 +1491,11 @@
             });
         });
 
-        // Instagram hover effect
+        // INSTAGRAM HOVER EFFECT
         document.querySelectorAll('.instagram-item').forEach(item => {
             item.addEventListener('mouseenter', function() {
                 this.style.transform = 'scale(1.05)';
             });
-            
             item.addEventListener('mouseleave', function() {
                 this.style.transform = 'scale(1)';
             });
