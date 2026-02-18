@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ===== ESTILOS GLOBAIS (DO SITE DE REFERÊNCIA) ===== */
+        /* ===== ESTILOS GLOBAIS (IGUAL AO NOVO INDEX) ===== */
         :root {
             --primary-yellow: #ffcc00;
             --primary-black: #000000;
@@ -40,7 +40,6 @@
             color: #333;
             overflow-x: hidden;
             padding-top: 90px;
-            background-color: #fefefe;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -48,11 +47,61 @@
             font-weight: 700;
         }
 
-        /* ===== CABEÇALHO PROFISSIONAL ===== */
+        /* ===== OVERLAY DE BOAS-VINDAS (APENAS LOGO) ===== */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .welcome-content {
+            text-align: center;
+            color: var(--primary-white);
+            max-width: 90%;
+        }
+
+        .welcome-logo {
+            max-width: 600px;
+            width: 90%;
+            height: auto;
+            margin-bottom: 30px;
+            animation: pulseLogo 2s infinite alternate;
+        }
+
+        @keyframes pulseLogo {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .welcome-subtitle {
+            font-size: 2rem;
+            color: var(--primary-yellow);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ===== CABEÇALHO PROFISSIONAL (PRETO) ===== */
         .navbar-gerard {
-            background: rgba(255, 255, 255, 0.98) !important;
+            background: rgba(0, 0, 0, 0.95) !important;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
             padding: 15px 0;
             transition: var(--transition);
             border-bottom: 3px solid transparent;
@@ -70,7 +119,7 @@
             font-family: 'Playfair Display', serif;
             font-weight: 900;
             font-size: 1.8rem;
-            color: var(--primary-black) !important;
+            color: var(--primary-white) !important;
         }
 
         .navbar-brand img {
@@ -94,7 +143,7 @@
         }
 
         .nav-link {
-            color: var(--primary-black) !important;
+            color: var(--primary-white) !important;
             font-weight: 600;
             padding: 10px 15px !important;
             position: relative;
@@ -124,11 +173,11 @@
 
         .nav-link:hover,
         .nav-link.active {
-            color: var(--primary-black) !important;
+            color: var(--primary-white) !important;
             font-weight: 700;
         }
 
-        /* ===== HERO BANNER PARA SOBRE ===== */
+        /* ===== HERO BANNER PARA SOBRE (MANTIDO) ===== */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
                         url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
@@ -205,7 +254,7 @@
             font-size: 1.2rem;
         }
 
-        /* Equipa */
+        /* Card de Equipa (para o carrossel) */
         .equipa-card {
             background: var(--primary-white);
             border-radius: 15px;
@@ -213,7 +262,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             height: 100%;
-            margin-bottom: 30px;
+            margin: 0 10px;
         }
 
         .equipa-card:hover {
@@ -236,6 +285,34 @@
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 10px;
+        }
+
+        /* Carrossel personalizado */
+        .team-carousel {
+            background: var(--light-gray);
+            padding: 40px 20px;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+
+        .carousel-item {
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .carousel-indicators button {
+            background-color: var(--primary-yellow) !important;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: var(--primary-yellow);
+            border-radius: 50%;
+            padding: 20px;
+            background-size: 50%;
         }
 
         /* Filosofia */
@@ -298,7 +375,7 @@
             margin-bottom: 20px;
         }
 
-        /* ===== RODAPÉ (COPIADO DO REFERÊNCIA) ===== */
+        /* ===== RODAPÉ (IGUAL AO INDEX) ===== */
         .footer-gerard {
             background: var(--primary-black);
             color: var(--primary-white);
@@ -389,7 +466,19 @@
             animation: none;
         }
 
-        /* Responsividade */
+        /* ===== ANIMAÇÕES GLOBAIS ===== */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
             .hero-banner {
                 height: 300px;
@@ -440,18 +529,36 @@
                 padding: 12px 20px;
                 font-size: 0.9rem;
             }
+
+            .welcome-logo {
+                max-width: 300px;
+            }
+
+            .welcome-subtitle {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- ================================================= -->
-    <!-- CABEÇALHO - DANIETA SABORES                      -->
+    <!-- OVERLAY DE BOAS-VINDAS (APENAS LOGO)              -->
+    <!-- ================================================= -->
+    <div class="welcome-overlay">
+        <div class="welcome-content">
+            <img src="C:\\Users\\gerar\\Music\\STREAM\\project-test\\ad\\logo\\ad_new\\1.png" alt="DANIETA SABORES" class="welcome-logo">
+            <p class="welcome-subtitle">DANIETA SABORES RESTAURANTE</p>
+        </div>
+    </div>
+
+    <!-- ================================================= -->
+    <!-- CABEÇALHO - DANIETA SABORES (PRETO)              -->
     <!-- ================================================= -->
     <nav class="navbar navbar-expand-lg navbar-gerard fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="C:\Users\gerar\Music\STREAM\project-test\ad\logo\Logo Restaurante Chamativo Amarelo e Branco (1).png" alt="DANIETA SABORES">
+                <img src="C:\\Users\\gerar\\Music\\STREAM\\project-test\\ad\\logo\\ad_new\\1.png" alt="DANIETA SABORES">
                 DANIETA<span>SABORES</span>
             </a>
             
@@ -506,42 +613,187 @@
                 </p>
             </div>
 
-            <!-- Equipa -->
-            <h2 class="section-title mt-5">Nossa Equipa</h2>
-            
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="equipa-card">
-                        <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Chef Danieta" class="equipa-image">
-                        <div class="equipa-info">
-                            <h4>Chef Danieta</h4>
-                            <div class="equipa-title">Chef Executiva & Fundadora</div>
-                            <p>
-                                Com mais de 25 anos de experiência na culinária angolana e internacional, a Chef Danieta é a alma do nosso restaurante. Formada na Escola de Hotelaria de Luanda e com passagens por restaurantes em Portugal e Brasil, combina técnica internacional com amor pelas tradições angolanas.
-                            </p>
-                            <p class="mb-0">
-                                <strong>Especialidades:</strong> Muamba de Galinha, Calulu de Peixe, Mufete Tradicional
-                            </p>
+            <!-- ================================================= -->
+            <!-- CARROSSEL DA EQUIPA - 10 MEMBROS, AUTO 5s        -->
+            <!-- ================================================= -->
+            <div class="team-carousel">
+                <h2 class="section-title">Nossa Equipa</h2>
+                <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="2"></button>
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="3"></button>
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="4"></button>
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="5"></button>
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="6"></button>
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="7"></button>
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="8"></button>
+                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="9"></button>
+                    </div>
+                    
+                    <div class="carousel-inner">
+                        <!-- Slide 1 -->
+                        <div class="carousel-item active">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.01 PM.jpeg" alt="Chef Danieta" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>Chef Gerard</h4>
+                                            <div class="equipa-title">Chef Executivo & Fundador</div>
+                                            <p>Mais de 25 anos de experiência, especialista em Muamba e Calulu.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\Downloads\Imagem WhatsApp 2025-10-16 às 15.35.49_764f271a.jpg" alt="Maria dos Santos" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>Cândida Isabel</h4>
+                                            <div class="equipa-title">Sous-Chef & Tradição</div>
+                                            <p>18 anos de experiência, especialista em técnicas ancestrais de fumo e secagem.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.03 PM.jpeg" alt="João Bernardo" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>João Seque</h4>
+                                            <div class="equipa-title">Chef de Cozinha</div>
+                                            <p>Especialista em carnes e churrasco, 15 anos de casa.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.48.55 PM.jpeg" alt="Ana Paula" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>José Sebastião</h4>
+                                            <div class="equipa-title">Confeiteiro</div>
+                                            <p>Criador das nossas cocadas, doces de múcua e bolos de ginguba.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 5 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.03 PM (1).jpeg" alt="Carlos Mendes" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>Herman</h4>
+                                            <div class="equipa-title">Sommelier</div>
+                                            <p>Responsável pela carta de vinhos e harmonizações.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 6 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.10 PM.jpeg" alt="Fernanda Lopes" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>Hazael Domingos</h4>
+                                            <div class="equipa-title">Gerente de Sala</div>
+                                            <p>Acompanhamento e excelência no serviço desde 2012.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 7 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.02 PM.jpeg" alt="Miguel Kiala" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>Miguel Kiala</h4>
+                                            <div class="equipa-title">Chef de Partida (Peixes)</div>
+                                            <p>Mestre no preparo de calulu e peixes grelhados.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 8 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.04 PM.jpeg" alt="Lúcia Cassange" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>Lúcia Cassange</h4>
+                                            <div class="equipa-title">Especialista em Funge e Pirão</div>
+                                            <p>Guardiã das receitas tradicionais de acompanhamentos.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 9 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.11 PM.jpeg" alt="António Ginga" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>António Ginga</h4>
+                                            <div class="equipa-title">Bartender</div>
+                                            <p>Cria os sumos naturais e coquetéis exclusivos da casa.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 10 -->
+                        <div class="carousel-item">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="equipa-card">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\Imagem WhatsApp 2024-09-15 às 22.02.07_7956431c.jpg"" alt="Sofia Kiesse" class="equipa-image">
+                                        <div class="equipa-info">
+                                            <h4>Sofia Kiesse</h4>
+                                            <div class="equipa-title">Coordenadora de Eventos</div>
+                                            <p>Organização de reservas para grupos e ocasiões especiais.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="equipa-card">
-                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="Maria dos Santos" class="equipa-image">
-                        <div class="equipa-info">
-                            <h4>Maria dos Santos</h4>
-                            <div class="equipa-title">Sous-Chef & Especialista em Técnicas Tradicionais</div>
-                            <p>
-                                Natural do Cuanza Sul, Maria traz o conhecimento ancestral das técnicas de preparação tradicionais aprendidas com sua avó. Especialista em fumo e secagem de peixe e carnes, garantindo a autenticidade dos nossos pratos mais tradicionais.
-                            </p>
-                            <p class="mb-0">
-                                <strong>Anos de experiência:</strong> 18 anos na culinária tradicional angolana
-                            </p>
-                        </div>
-                    </div>
+
+                    <!-- Controles -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Próximo</span>
+                    </button>
                 </div>
             </div>
 
@@ -628,14 +880,14 @@
     </section>
 
     <!-- ================================================= -->
-    <!-- RODAPÉ - DANIETA SABORES                         -->
+    <!-- RODAPÉ - DANIETA SABORES (IGUAL AO INDEX)        -->
     <!-- ================================================= -->
     <footer class="footer-gerard">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <div class="footer-logo">
-                        <img src="C:\Users\gerar\Music\STREAM\project-test\ad\logo\Logo Restaurante Chamativo Amarelo e Branco (1).png" alt="DANIETA SABORES">
+                        <img src="C:\\Users\\gerar\\Music\\STREAM\\project-test\\ad\\logo\\ad_new\\1.png" alt="DANIETA SABORES">
                         DANIETA<span>SABORES</span>
                     </div>
                     <p class="mb-4">
@@ -707,7 +959,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Efeito scroll navbar
+        // ANIMAÇÃO DE BOAS-VINDAS
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.querySelector('.welcome-overlay').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.welcome-overlay').style.display = 'none';
+                }, 1000);
+            }, 3000);
+        });
+
+        // EFEITO SCROLL NAVBAR
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar-gerard');
             if (window.scrollY > 50) {
@@ -717,7 +979,7 @@
             }
         });
 
-        // Destacar link activo
+        // DESTACAR LINK ACTIVO
         const currentPage = 'sobre.html';
         document.querySelectorAll('.nav-link').forEach(link => {
             const linkPage = link.getAttribute('href');
@@ -728,7 +990,7 @@
             }
         });
 
-        // Smooth scroll para âncoras
+        // SMOOTH SCROLL PARA ÂNCORAS
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
