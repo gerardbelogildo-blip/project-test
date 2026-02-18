@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delivery & Takeaway - Gerard TV Restaurante</title>
+    <title>Delivery & Takeaway - Danieta Sabores</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,12 +18,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
+        /* ===== ESTILOS GLOBAIS (IGUAL AO INDEX) ===== */
         :root {
             --primary-yellow: #ffcc00;
             --primary-black: #000000;
             --primary-white: #ffffff;
             --dark-gray: #1a1a1a;
             --light-gray: #f8f9fa;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * {
@@ -42,13 +47,63 @@
             font-weight: 700;
         }
 
-        /* Professional Header */
+        /* ===== OVERLAY DE BOAS-VINDAS ===== */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .welcome-content {
+            text-align: center;
+            color: var(--primary-white);
+            max-width: 90%;
+        }
+
+        .welcome-logo {
+            max-width: 600px;
+            width: 90%;
+            height: auto;
+            margin-bottom: 30px;
+            animation: pulseLogo 2s infinite alternate;
+        }
+
+        @keyframes pulseLogo {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .welcome-subtitle {
+            font-size: 2rem;
+            color: var(--primary-yellow);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ===== CABEÇALHO PROFISSIONAL (PRETO) ===== */
         .navbar-gerard {
-            background: rgba(255, 255, 255, 0.98) !important;
+            background: rgba(0, 0, 0, 0.95) !important;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
             padding: 15px 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: var(--transition);
             border-bottom: 3px solid transparent;
         }
 
@@ -59,17 +114,70 @@
         }
 
         .navbar-brand {
+            display: flex;
+            align-items: center;
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: 2rem;
-            color: var(--primary-black) !important;
+            font-size: 1.8rem;
+            color: var(--primary-white) !important;
+        }
+
+        .navbar-brand img {
+            height: 80px;
+            width: auto;
+            margin-right: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.1) rotate(3deg);
         }
 
         .navbar-brand span {
             color: var(--primary-yellow);
+            margin-left: 5px;
         }
 
-        /* Hero Banner */
+        .nav-item {
+            margin: 0 5px;
+        }
+
+        .nav-link {
+            color: var(--primary-white) !important;
+            font-weight: 600;
+            padding: 10px 15px !important;
+            position: relative;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid var(--primary-yellow);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: -1;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-white) !important;
+            font-weight: 700;
+        }
+
+        /* ===== HERO BANNER ===== */
         .delivery-hero {
             background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
                         url('https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
@@ -94,7 +202,12 @@
             color: var(--primary-yellow);
         }
 
-        /* Delivery Sections */
+        .delivery-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* ===== SEÇÕES PRINCIPAIS ===== */
         .section-padding {
             padding: 80px 0;
         }
@@ -352,7 +465,7 @@
             margin-bottom: 15px;
         }
 
-        /* Delivery Time */
+        /* Time Slots */
         .time-slots {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -489,12 +602,95 @@
             font-size: 3rem;
         }
 
-        /* Footer */
+        /* ===== RODAPÉ (IGUAL AO INDEX) ===== */
         .footer-gerard {
             background: var(--primary-black);
             color: var(--primary-white);
             padding: 80px 0 30px;
             margin-top: 100px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary-white);
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 70px;
+            width: auto;
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .footer-logo:hover img {
+            transform: scale(1.1);
+        }
+
+        .footer-logo span {
+            color: var(--primary-yellow);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            transform: translateY(-8px) rotate(360deg);
+        }
+
+        /* Delivery Badge */
+        .delivery-badge {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.4);
+            z-index: 1000;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .delivery-badge:hover {
+            background: var(--primary-black);
+            color: var(--primary-yellow);
+            transform: translateY(-5px);
+            animation: none;
         }
 
         /* Responsive */
@@ -503,33 +699,50 @@
                 height: 300px;
                 margin-bottom: 40px;
             }
-            
             .delivery-hero h1 {
                 font-size: 2.5rem;
             }
-            
             .order-form-container {
                 margin-top: 0;
             }
-            
             .form-body {
                 padding: 25px;
             }
-            
             body {
                 padding-top: 70px;
             }
-            
             .section-padding {
                 padding: 60px 0;
             }
-            
             .time-slots {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
-            
             .payment-methods {
                 flex-direction: column;
+            }
+            .navbar-brand {
+                font-size: 1.4rem;
+            }
+            .navbar-brand img {
+                height: 60px;
+            }
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+            .footer-logo img {
+                height: 55px;
+            }
+            .delivery-badge {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            .welcome-logo {
+                max-width: 300px;
+            }
+            .welcome-subtitle {
+                font-size: 1.5rem;
             }
         }
 
@@ -539,11 +752,9 @@
                 align-items: flex-start;
                 gap: 15px;
             }
-            
             .quantity-control {
                 align-self: flex-end;
             }
-            
             .confirmation-content {
                 padding: 30px 20px;
             }
@@ -551,10 +762,26 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+
+    <!-- ================================================= -->
+    <!-- OVERLAY DE BOAS-VINDAS (APENAS LOGO)              -->
+    <!-- ================================================= -->
+    <div class="welcome-overlay">
+        <div class="welcome-content">
+            <img src="C:\\Users\\gerar\\Music\\STREAM\\project-test\\ad\\logo\\ad_new\\1.png" alt="DANIETA SABORES" class="welcome-logo">
+            <p class="welcome-subtitle">DANIETA SABORES RESTAURANTE</p>
+        </div>
+    </div>
+
+    <!-- ================================================= -->
+    <!-- CABEÇALHO - DANIETA SABORES (PRETO)              -->
+    <!-- ================================================= -->
     <nav class="navbar navbar-expand-lg navbar-gerard fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">GERARD<span>TV</span></a>
+            <a class="navbar-brand" href="index.html">
+                <img src="C:\\Users\\gerar\\Music\\STREAM\\project-test\\ad\\logo\\ad_new\\1.png" alt="DANIETA SABORES">
+                DANIETA<span>SABORES</span>
+            </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -562,43 +789,33 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sobre.html">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="menu.html">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="reservas.html">Reservas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="galeria.html">Galeria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactos.html">Contactos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="delivery.html">Delivery</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sobre.html">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="galeria.html">Galeria</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="delivery.html">Delivery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactos.html">Contactos</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Banner -->
+    <!-- ================================================= -->
+    <!-- HERO BANNER                                       -->
+    <!-- ================================================= -->
     <section class="delivery-hero">
         <div class="container">
             <div class="delivery-hero-content">
                 <h1>Delivery & Takeaway</h1>
-                <p class="lead">Os sabores do Gerard TV direto para sua casa ou escritório</p>
+                <p class="lead">Os sabores do Danieta Sabores direto para sua casa ou escritório</p>
             </div>
         </div>
     </section>
 
-    <!-- Delivery Cards -->
+    <!-- ================================================= -->
+    <!-- DELIVERY CARDS                                    -->
+    <!-- ================================================= -->
     <section class="section-padding">
         <div class="container">
             <div class="row g-4">
@@ -641,7 +858,9 @@
         </div>
     </section>
 
-    <!-- Order Form -->
+    <!-- ================================================= -->
+    <!-- FORMULÁRIO DE PEDIDO                              -->
+    <!-- ================================================= -->
     <section class="section-padding bg-light">
         <div class="container">
             <h2 class="section-title">Faça Seu Pedido Online</h2>
@@ -813,7 +1032,9 @@
         </div>
     </section>
 
-    <!-- Delivery Zones -->
+    <!-- ================================================= -->
+    <!-- ZONAS DE ENTREGA                                  -->
+    <!-- ================================================= -->
     <section class="section-padding">
         <div class="container">
             <h2 class="section-title">Zonas de Entrega</h2>
@@ -860,7 +1081,9 @@
         </div>
     </section>
 
-    <!-- Payment Methods -->
+    <!-- ================================================= -->
+    <!-- MÉTODOS DE PAGAMENTO                              -->
+    <!-- ================================================= -->
     <section class="section-padding bg-light">
         <div class="container">
             <h2 class="section-title">Métodos de Pagamento</h2>
@@ -911,7 +1134,9 @@
         </div>
     </section>
 
-    <!-- Delivery Partners -->
+    <!-- ================================================= -->
+    <!-- PARCEIROS DE DELIVERY                             -->
+    <!-- ================================================= -->
     <section class="section-padding">
         <div class="container">
             <h2 class="section-title">Também Estamos Em</h2>
@@ -946,7 +1171,7 @@
                         </div>
                         <h5>Directo</h5>
                         <p class="small mb-3">Pedidos pelo nosso WhatsApp</p>
-                        <a href="https://wa.me/244923456789" class="btn btn-success btn-sm">WhatsApp</a>
+                        <a href="https://wa.me/244929943878" class="btn btn-success btn-sm">WhatsApp</a>
                     </div>
                 </div>
                 
@@ -964,7 +1189,9 @@
         </div>
     </section>
 
-    <!-- Confirmation Modal -->
+    <!-- ================================================= -->
+    <!-- MODAL DE CONFIRMAÇÃO                              -->
+    <!-- ================================================= -->
     <div class="confirmation-modal" id="confirmationModal">
         <div class="confirmation-content">
             <div class="confirmation-icon">
@@ -975,7 +1202,7 @@
             
             <div class="mb-4 p-3 bg-light rounded">
                 <h6 class="mb-3">Detalhes do Pedido:</h6>
-                <p class="mb-1"><strong>Número do Pedido:</strong> <span id="orderNumber">GTV-D-2024-00123</span></p>
+                <p class="mb-1"><strong>Número do Pedido:</strong> <span id="orderNumber">DS-D-2026-00123</span></p>
                 <p class="mb-1"><strong>Tempo estimado:</strong> <span id="estimatedTime">45 minutos</span></p>
                 <p class="mb-1"><strong>Total:</strong> <span id="orderTotal">0 Kz</span></p>
                 <p class="mb-0"><strong>Status:</strong> <span class="badge bg-warning text-dark">Em Processamento</span></p>
@@ -991,13 +1218,27 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ================================================= -->
+    <!-- RODAPÉ - DANIETA SABORES                          -->
+    <!-- ================================================= -->
     <footer class="footer-gerard">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-5 mb-lg-0">
-                    <div style="font-size: 2.5rem; font-weight: 900; color: white; margin-bottom: 20px;">GERARD<span style="color: var(--primary-yellow);">TV</span></div>
-                    <p class="mb-4">Restaurante de comida tradicional angolana desde 2008. Sabores autênticos, qualidade e tradição.</p>
+                    <div class="footer-logo">
+                        <img src="C:\\Users\\gerar\\Music\\STREAM\\project-test\\ad\\logo\\ad_new\\1.png" alt="DANIETA SABORES">
+                        DANIETA<span>SABORES</span>
+                    </div>
+                    <p class="mb-4">
+                        Restaurante de comida tradicional angolana desde 2010.<br>
+                        Sabores autênticos, qualidade e tradição.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
                 
                 <div class="col-lg-4 mb-5 mb-lg-0">
@@ -1005,7 +1246,7 @@
                     <p class="mb-2"><i class="fas fa-clock me-2"></i> 11:00 - 22:00 (Todos os dias)</p>
                     <p class="mb-2"><i class="fas fa-motorcycle me-2"></i> Taxa de entrega: 500 Kz</p>
                     <p class="mb-2"><i class="fas fa-shopping-cart me-2"></i> Pedido mínimo: 3.000 Kz</p>
-                    <p class="mb-4"><i class="fab fa-whatsapp me-2"></i> WhatsApp Delivery: +244 923 456 789</p>
+                    <p class="mb-4"><i class="fab fa-whatsapp me-2"></i> WhatsApp Delivery: +244 929 943 878</p>
                 </div>
                 
                 <div class="col-lg-4">
@@ -1017,7 +1258,7 @@
                             Verificar
                         </button>
                     </div>
-                    <p class="small text-muted">Exemplo: GTV-D-2024-00123</p>
+                    <p class="small text-muted">Exemplo: DS-D-2026-00123</p>
                 </div>
             </div>
             
@@ -1025,17 +1266,37 @@
             
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <p class="mb-0">© 2023 GERARD TV RESTAURANTE. Delivery disponível em Luanda. Preços sujeitos a alteração.</p>
+                    <p class="mb-0">© 2026 DANIETA SABORES - RESTAURANTE. Delivery disponível em Luanda. Preços sujeitos a alteração.</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- ================================================= -->
+    <!-- BADGE FIXO DE DELIVERY                           -->
+    <!-- ================================================= -->
+    <a href="delivery.html" class="delivery-badge">
+        <i class="fas fa-motorcycle"></i>
+        <span>DELIVERY: +244 929 943 878</span>
+    </a>
+
+    <!-- ================================================= -->
+    <!-- SCRIPTS                                          -->
+    <!-- ================================================= -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Navbar scroll effect
+        // ANIMAÇÃO DE BOAS-VINDAS
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.querySelector('.welcome-overlay').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.welcome-overlay').style.display = 'none';
+                }, 1000);
+            }, 3000);
+        });
+
+        // EFEITO SCROLL NAVBAR
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar-gerard');
             if (window.scrollY > 50) {
@@ -1045,7 +1306,18 @@
             }
         });
 
-        // Cart functionality
+        // DESTACAR LINK ACTIVO
+        const currentPage = 'delivery.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // CART FUNCTIONALITY
         const cart = {};
         const prices = {
             muamba: 3800,
@@ -1065,7 +1337,6 @@
             pirao: "Pirão de Farinha"
         };
 
-        // Quantity buttons
         document.querySelectorAll('.quantity-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const item = this.dataset.item;
@@ -1132,7 +1403,6 @@
             cartItems.innerHTML = html;
             checkoutBtn.disabled = false;
             
-            // Add event listeners to remove buttons
             document.querySelectorAll('.remove-item').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const item = this.dataset.item;
@@ -1158,25 +1428,16 @@
             document.getElementById('deliveryFee').textContent = deliveryFee.toLocaleString() + ' Kz';
             document.getElementById('total').textContent = total.toLocaleString() + ' Kz';
             
-            // Update order total in modal
             document.getElementById('orderTotal').textContent = total.toLocaleString() + ' Kz';
         }
 
-        // Time slot selection
+        // TIME SLOT SELECTION
         document.querySelectorAll('.time-slot').forEach(slot => {
             slot.addEventListener('click', function() {
-                // Remove selected class from all slots
-                document.querySelectorAll('.time-slot').forEach(s => {
-                    s.classList.remove('selected');
-                });
-                
-                // Add selected class to clicked slot
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
                 this.classList.add('selected');
-                
                 const time = this.dataset.time;
                 document.getElementById('selectedTime').value = time;
-                
-                // Update estimated time in modal
                 if (time === 'specific') {
                     document.getElementById('estimatedTime').textContent = 'A combinar';
                 } else {
@@ -1185,35 +1446,27 @@
             });
         });
 
-        // Payment method selection
+        // PAYMENT METHOD SELECTION
         document.querySelectorAll('.payment-method').forEach(method => {
             method.addEventListener('click', function() {
-                // Remove selected class from all methods
-                document.querySelectorAll('.payment-method').forEach(m => {
-                    m.classList.remove('selected');
-                });
-                
-                // Add selected class to clicked method
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
                 this.classList.add('selected');
             });
         });
 
-        // Checkout button
+        // CHECKOUT BUTTON
         document.getElementById('checkoutBtn').addEventListener('click', function() {
             if (Object.keys(cart).length === 0) {
                 alert('Adicione itens ao carrinho antes de finalizar o pedido.');
                 return;
             }
             
-            // Generate order number
-            const orderNumber = 'GTV-D-' + new Date().getFullYear() + '-' + 
+            const orderNumber = 'DS-D-' + new Date().getFullYear() + '-' + 
                               Math.floor(10000 + Math.random() * 90000);
             document.getElementById('orderNumber').textContent = orderNumber;
             
-            // Show confirmation modal
             document.getElementById('confirmationModal').style.display = 'flex';
             
-            // In a real application, you would send the order data to a server here
             const orderData = {
                 cart: cart,
                 total: document.getElementById('total').textContent,
@@ -1223,7 +1476,6 @@
             
             console.log('Order submitted:', orderData);
             
-            // Reset cart
             for (const item in cart) {
                 const input = document.querySelector(`.quantity-input[data-item="${item}"]`);
                 input.value = 0;
@@ -1232,17 +1484,16 @@
             updateCartDisplay();
             updateTotals();
             
-            // Reset selections
             document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
             document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
         });
 
-        // Close modal
+        // CLOSE MODAL
         document.getElementById('closeModal').addEventListener('click', function() {
             document.getElementById('confirmationModal').style.display = 'none';
         });
 
-        // Order tracking
+        // ORDER TRACKING
         document.querySelector('.btn-warning[type="button"]').addEventListener('click', function() {
             const orderNumber = this.previousElementSibling.value;
             if (orderNumber) {
@@ -1252,31 +1503,11 @@
             }
         });
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Auto-select first time slot
+        // AUTO-SELECT FIRST TIME SLOT AND CASH PAYMENT
         document.querySelector('.time-slot').click();
-        
-        // Auto-select cash payment
         document.querySelector('.payment-method[data-method="cash"]').click();
 
-        // Initialize totals
+        // INITIAL TOTALS
         updateTotals();
     </script>
 </body>
