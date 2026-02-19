@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ===== ESTILOS GLOBAIS (IGUAL AO NOVO INDEX) ===== */
+        /* ===== ESTILOS GLOBAIS ===== */
         :root {
             --primary-yellow: #ffcc00;
             --primary-black: #000000;
@@ -47,7 +47,7 @@
             font-weight: 700;
         }
 
-        /* ===== OVERLAY DE BOAS-VINDAS (APENAS LOGO) ===== */
+        /* ===== OVERLAY DE BOAS-VINDAS ===== */
         .welcome-overlay {
             position: fixed;
             top: 0;
@@ -97,7 +97,7 @@
             to { opacity: 1; }
         }
 
-        /* ===== CABEÇALHO PROFISSIONAL (PRETO) ===== */
+        /* ===== CABEÇALHO PROFISSIONAL ===== */
         .navbar-gerard {
             background: rgba(0, 0, 0, 0.95) !important;
             backdrop-filter: blur(10px);
@@ -177,7 +177,7 @@
             font-weight: 700;
         }
 
-        /* ===== HERO BANNER PARA SOBRE (MANTIDO) ===== */
+        /* ===== HERO BANNER ===== */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
                         url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
@@ -231,30 +231,61 @@
             border-radius: 2px;
         }
 
-        /* História */
-        .historia-content {
+        /* Cartões de história */
+        .history-card {
             background: var(--primary-white);
             border-radius: 15px;
-            padding: 50px;
+            padding: 40px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-            position: relative;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--primary-yellow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .historia-content::before {
-            content: '2010';
-            position: absolute;
-            top: -25px;
-            left: 50px;
-            background: var(--primary-yellow);
+        .history-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .history-card h3 {
             color: var(--primary-black);
-            padding: 10px 30px;
-            border-radius: 30px;
-            font-weight: 900;
-            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
         }
 
-        /* Card de Equipa (para o carrossel) */
+        .history-card h4 {
+            color: var(--primary-yellow);
+            font-size: 1.4rem;
+            margin: 25px 0 15px;
+        }
+
+        .history-card ul, .history-card ol {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .history-card li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .history-card .pill-list {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .history-card .pill-list li {
+            background: var(--light-gray);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            border: 1px solid #eee;
+        }
+
+        /* Card de Equipa */
         .equipa-card {
             background: var(--primary-white);
             border-radius: 15px;
@@ -287,12 +318,12 @@
             margin-bottom: 10px;
         }
 
-        /* Carrossel personalizado */
+        /* Carrossel */
         .team-carousel {
             background: var(--light-gray);
             padding: 40px 20px;
             border-radius: 20px;
-            margin: 40px 0;
+            margin: 60px 0;
         }
 
         .carousel-item {
@@ -375,7 +406,44 @@
             margin-bottom: 20px;
         }
 
-        /* ===== RODAPÉ (IGUAL AO INDEX) ===== */
+        /* Listas de formação e cultura */
+        .custom-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .custom-list li {
+            background: var(--light-gray);
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+            transition: transform 0.3s;
+        }
+
+        .custom-list li:hover {
+            transform: translateX(8px);
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+        }
+
+        .custom-list li i {
+            font-size: 1.5rem;
+            color: var(--primary-yellow);
+            width: 30px;
+        }
+
+        .custom-list li:hover i {
+            color: var(--primary-black);
+        }
+
+        /* ===== RODAPÉ ===== */
         .footer-gerard {
             background: var(--primary-black);
             color: var(--primary-white);
@@ -489,8 +557,8 @@
                 font-size: 2.5rem;
             }
             
-            .historia-content {
-                padding: 30px;
+            .history-card {
+                padding: 25px;
             }
             
             .filosofia-item {
@@ -543,7 +611,7 @@
 <body>
 
     <!-- ================================================= -->
-    <!-- OVERLAY DE BOAS-VINDAS (APENAS LOGO)              -->
+    <!-- OVERLAY DE BOAS-VINDAS                            -->
     <!-- ================================================= -->
     <div class="welcome-overlay">
         <div class="welcome-content">
@@ -553,7 +621,7 @@
     </div>
 
     <!-- ================================================= -->
-    <!-- CABEÇALHO - DANIETA SABORES (PRETO)              -->
+    <!-- CABEÇALHO                                         -->
     <!-- ================================================= -->
     <nav class="navbar navbar-expand-lg navbar-gerard fixed-top">
         <div class="container">
@@ -581,7 +649,7 @@
     </nav>
 
     <!-- ================================================= -->
-    <!-- HERO BANNER - NOSSA HISTÓRIA & FILOSOFIA         -->
+    <!-- HERO BANNER                                       -->
     <!-- ================================================= -->
     <section class="hero-banner">
         <div class="container">
@@ -593,29 +661,86 @@
     </section>
 
     <!-- ================================================= -->
-    <!-- CONTEÚDO PRINCIPAL                               -->
+    <!-- CONTEÚDO PRINCIPAL                                -->
     <!-- ================================================= -->
     <section class="section-padding">
         <div class="container">
-            <!-- História -->
+
+            <!-- ========== HISTÓRIA COMPLETA ========== -->
             <h2 class="section-title">Nossa História</h2>
-            
-            <div class="historia-content">
-                <h3 class="mb-4">De Uma Paixão a Uma Tradição</h3>
-                <p class="mb-4">
-                    Fundado em 2010 pela Chef Danieta, o Danieta Sabores nasceu de um sonho: preservar e celebrar a rica culinária tradicional angolana numa época em que a globalização começava a diluir as tradições locais. O nome "Sabores" representa a nossa missão dupla de manter vivas as receitas ancestrais enquanto inovamos com respeito às suas origens.
-                </p>
-                <p class="mb-4">
-                    Começámos como um pequeno estabelecimento no Bairro da Maianga, com apenas 6 mesas e uma equipa de 4 pessoas. A recepção entusiástica da comunidade local rapidamente transformou-nos num ponto de referência para quem procurava autenticidade e qualidade.
-                </p>
-                <p>
-                    Hoje, após mais de uma década de dedicação, servimos mais de 500 refeições por dia e empregamos mais de 30 colaboradores angolanos, mantendo sempre o mesmo compromisso com a qualidade, autenticidade e hospitalidade que nos caracteriza desde o primeiro dia.
-                </p>
+
+            <!-- Introdução / Visão Geral -->
+            <div class="history-card">
+                <h3>Um Sonho Feito Projeto Cultural</h3>
+                <p class="lead">O Danieta Sabores não nasceu apenas como um restaurante — nasceu como um projeto cultural, um sonho e um compromisso com a identidade angolana. A sua história é marcada por raízes profundas, crescimento estruturado e uma visão evolutiva voltada para o futuro.</p>
             </div>
 
-            <!-- ================================================= -->
-            <!-- CARROSSEL DA EQUIPA - 10 MEMBROS, AUTO 5s        -->
-            <!-- ================================================= -->
+            <!-- Raízes Históricas -->
+            <div class="history-card">
+                <h3><i class="fas fa-tree me-3" style="color: var(--primary-yellow);"></i> As Raízes Históricas</h3>
+                <p>A criação do Danieta Sabores foi inspirada na riqueza histórica e cultural de Angola. Desde os tempos do <strong>Reino do Kongo</strong> até às tradições preservadas nas comunidades rurais e urbanas de Luanda, a gastronomia sempre foi um elemento central de identidade, celebração e união.</p>
+                <p>O restaurante surgiu com o propósito de preservar receitas tradicionais que atravessaram gerações — pratos que contam histórias de famílias, aldeias e províncias. A ideia inicial era simples: criar um espaço onde a comida angolana fosse valorizada com o respeito e a sofisticação que merece.</p>
+            </div>
+
+            <!-- Nascimento do Projeto -->
+            <div class="history-card">
+                <h3><i class="fas fa-lightbulb me-3" style="color: var(--primary-yellow);"></i> O Nascimento do Projeto</h3>
+                <p>O Danieta Sabores começou como um conceito cultural antes de se tornar uma estrutura física. O projeto foi idealizado para preencher uma lacuna: a ausência de um restaurante que representasse Angola com padrão internacional, mas mantendo autenticidade absoluta.</p>
+                <h4>Desde o início, o foco esteve em três pilares:</h4>
+                <ul class="pill-list">
+                    <li><i class="fas fa-check-circle me-2"></i>Preservação histórica</li>
+                    <li><i class="fas fa-check-circle me-2"></i>Valorização cultural</li>
+                    <li><i class="fas fa-check-circle me-2"></i>Excelência no serviço</li>
+                </ul>
+                <p class="mt-3">Cada detalhe — da decoração à escolha dos pratos — foi pensado para refletir a história do país.</p>
+            </div>
+
+            <!-- Evolução Estrutural -->
+            <div class="history-card">
+                <h3><i class="fas fa-chart-line me-3" style="color: var(--primary-yellow);"></i> A Evolução Estrutural</h3>
+                <p>Com o passar do tempo, o restaurante deixou de ser apenas um espaço gastronómico e transformou-se num centro de experiência cultural.</p>
+                <h4>Fases da Evolução:</h4>
+                <ol>
+                    <li><strong>1ª Fase – Consolidação Cultural:</strong> Fortalecimento da identidade visual e gastronómica, valorizando receitas tradicionais e elementos decorativos angolanos.</li>
+                    <li><strong>2ª Fase – Profissionalização e Modernização:</strong> Implementação de padrões internacionais de atendimento, modernização da cozinha, formação contínua da equipa e adoção de tecnologias para gestão interna.</li>
+                    <li><strong>3ª Fase – Expansão de Marca:</strong> Construção de uma identidade forte e reconhecível, posicionando o Danieta Sabores como referência em gastronomia angolana contemporânea.</li>
+                </ol>
+            </div>
+
+            <!-- Evolução Cultural e Social -->
+            <div class="history-card">
+                <h3><i class="fas fa-hand-holding-heart me-3" style="color: var(--primary-yellow);"></i> Evolução Cultural e Social</h3>
+                <p>O restaurante passou a desempenhar também um papel social e cultural. Tornou-se um espaço de encontros, celebrações e eventos que promovem a cultura angolana através da música, arte e tradições.</p>
+                <p>Mais do que servir comida, o Danieta Sabores começou a contar histórias — histórias de Angola, da sua resistência, diversidade e riqueza cultural.</p>
+            </div>
+
+            <!-- Visão Evolutiva -->
+            <div class="history-card">
+                <h3><i class="fas fa-binoculars me-3" style="color: var(--primary-yellow);"></i> A Visão Evolutiva</h3>
+                <p>Hoje, o Danieta Sabores representa a união entre tradição e inovação.</p>
+                <p>A sua evolução continua baseada em:</p>
+                <ul>
+                    <li>Modernização constante da infraestrutura</li>
+                    <li>Integração de tecnologia no atendimento</li>
+                    <li>Valorização contínua da história gastronómica angolana</li>
+                    <li>Expansão da marca para novos mercados</li>
+                </ul>
+                <p class="mt-3">O restaurante entende que evoluir não significa abandonar as raízes, mas sim fortalecê-las enquanto se adapta às exigências contemporâneas.</p>
+            </div>
+
+            <!-- Legado em Construção -->
+            <div class="history-card">
+                <h3><i class="fas fa-crown me-3" style="color: var(--primary-yellow);"></i> Um Legado em Construção</h3>
+                <p>O Danieta Sabores constrói diariamente um legado. A sua história não é apenas sobre crescimento físico, mas sobre impacto cultural.</p>
+                <p>Ele representa:</p>
+                <ul>
+                    <li>A preservação da memória gastronómica</li>
+                    <li>A elevação da cozinha angolana ao padrão internacional</li>
+                    <li>O orgulho nacional servido à mesa</li>
+                </ul>
+            </div>
+
+            <!-- ========== CARROSSEL DA EQUIPA (2 CARDS POR SLIDE) ========== -->
             <div class="team-carousel">
                 <h2 class="section-title">Nossa Equipa</h2>
                 <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
@@ -625,20 +750,15 @@
                         <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="2"></button>
                         <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="3"></button>
                         <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="4"></button>
-                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="5"></button>
-                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="6"></button>
-                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="7"></button>
-                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="8"></button>
-                        <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="9"></button>
                     </div>
                     
                     <div class="carousel-inner">
-                        <!-- Slide 1 -->
+                        <!-- Slide 1: Membros 1 e 2 -->
                         <div class="carousel-item active">
                             <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
-                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.01 PM.jpeg" alt="Chef Danieta" class="equipa-image">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.01 PM.jpeg" alt="Chef Gerard" class="equipa-image">
                                         <div class="equipa-info">
                                             <h4>Chef Gerard</h4>
                                             <div class="equipa-title">Chef Executivo & Fundador</div>
@@ -646,14 +766,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Slide 2 -->
-                        <div class="carousel-item">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
-                                        <img src="C:\Users\gerar\Downloads\Imagem WhatsApp 2025-10-16 às 15.35.49_764f271a.jpg" alt="Maria dos Santos" class="equipa-image">
+                                        <img src="C:\Users\gerar\Downloads\Imagem WhatsApp 2025-10-16 às 15.35.49_764f271a.jpg" alt="Cândida Isabel" class="equipa-image">
                                         <div class="equipa-info">
                                             <h4>Cândida Isabel</h4>
                                             <div class="equipa-title">Sous-Chef & Tradição</div>
@@ -663,12 +778,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Slide 3 -->
+                        <!-- Slide 2: Membros 3 e 4 -->
                         <div class="carousel-item">
                             <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
-                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.03 PM.jpeg" alt="João Bernardo" class="equipa-image">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.03 PM.jpeg" alt="João Seque" class="equipa-image">
                                         <div class="equipa-info">
                                             <h4>João Seque</h4>
                                             <div class="equipa-title">Chef de Cozinha</div>
@@ -676,14 +791,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Slide 4 -->
-                        <div class="carousel-item">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
-                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.48.55 PM.jpeg" alt="Ana Paula" class="equipa-image">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.48.55 PM.jpeg" alt="José Sebastião" class="equipa-image">
                                         <div class="equipa-info">
                                             <h4>José Sebastião</h4>
                                             <div class="equipa-title">Confeiteiro</div>
@@ -693,12 +803,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Slide 5 -->
+                        <!-- Slide 3: Membros 5 e 6 -->
                         <div class="carousel-item">
                             <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
-                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.03 PM (1).jpeg" alt="Carlos Mendes" class="equipa-image">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.03 PM (1).jpeg" alt="Herman" class="equipa-image">
                                         <div class="equipa-info">
                                             <h4>Herman</h4>
                                             <div class="equipa-title">Sommelier</div>
@@ -706,14 +816,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Slide 6 -->
-                        <div class="carousel-item">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
-                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.10 PM.jpeg" alt="Fernanda Lopes" class="equipa-image">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.10 PM.jpeg" alt="Hazael Domingos" class="equipa-image">
                                         <div class="equipa-info">
                                             <h4>Hazael Domingos</h4>
                                             <div class="equipa-title">Gerente de Sala</div>
@@ -723,10 +828,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Slide 7 -->
+                        <!-- Slide 4: Membros 7 e 8 -->
                         <div class="carousel-item">
                             <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
                                         <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.02 PM.jpeg" alt="Miguel Kiala" class="equipa-image">
                                         <div class="equipa-info">
@@ -736,12 +841,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Slide 8 -->
-                        <div class="carousel-item">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
                                         <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.04 PM.jpeg" alt="Lúcia Cassange" class="equipa-image">
                                         <div class="equipa-info">
@@ -753,10 +853,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Slide 9 -->
+                        <!-- Slide 5: Membros 9 e 10 -->
                         <div class="carousel-item">
                             <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
                                         <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\ich\WhatsApp Image 2026-02-18 at 11.49.11 PM.jpeg" alt="António Ginga" class="equipa-image">
                                         <div class="equipa-info">
@@ -766,14 +866,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Slide 10 -->
-                        <div class="carousel-item">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-5 mb-4">
                                     <div class="equipa-card">
-                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\Imagem WhatsApp 2024-09-15 às 22.02.07_7956431c.jpg"" alt="Sofia Kiesse" class="equipa-image">
+                                        <img src="C:\Users\gerar\OneDrive\Documentos\Imagens\Imagem WhatsApp 2024-09-15 às 22.02.07_7956431c.jpg" alt="Sofia Kiesse" class="equipa-image">
                                         <div class="equipa-info">
                                             <h4>Sofia Kiesse</h4>
                                             <div class="equipa-title">Coordenadora de Eventos</div>
@@ -785,7 +880,6 @@
                         </div>
                     </div>
 
-                    <!-- Controles -->
                     <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Anterior</span>
@@ -797,8 +891,8 @@
                 </div>
             </div>
 
-            <!-- Filosofia -->
-            <h2 class="section-title mt-5">Nossa Filosofia</h2>
+            <!-- ========== FILOSOFIA ========== -->
+            <h2 class="section-title">Nossa Filosofia</h2>
             
             <div class="row">
                 <div class="col-lg-12">
@@ -808,9 +902,7 @@
                         </div>
                         <div>
                             <h4>Ingredientes Frescos & Locais</h4>
-                            <p>
-                                Trabalhamos directamente com mais de 30 produtores locais em todas as províncias de Angola. Desde o peixe fresco do Lobito até as verduras do Huambo, garantimos que cada ingrediente seja da mais alta qualidade e proveniente de fontes sustentáveis. Visitamos pessoalmente os nossos fornecedores trimestralmente para manter os nossos padrões.
-                            </p>
+                            <p>Trabalhamos directamente com mais de 30 produtores locais em todas as províncias de Angola. Desde o peixe fresco do Lobito até as verduras do Huambo, garantimos que cada ingrediente seja da mais alta qualidade e proveniente de fontes sustentáveis. Visitamos pessoalmente os nossos fornecedores trimestralmente para manter os nossos padrões.</p>
                         </div>
                     </div>
                     
@@ -820,9 +912,7 @@
                         </div>
                         <div>
                             <h4>Preservação das Receitas Ancestrais</h4>
-                            <p>
-                                Mantemos um arquivo físico e digital com mais de 200 receitas tradicionais angolanas, muitas delas coletadas directamente com anciãos de várias comunidades. Cada prato no nosso menu é uma homenagem fiel às suas origens, sem adulterações ou adaptações desnecessárias.
-                            </p>
+                            <p>Mantemos um arquivo físico e digital com mais de 200 receitas tradicionais angolanas, muitas delas coletadas directamente com anciãos de várias comunidades. Cada prato no nosso menu é uma homenagem fiel às suas origens, sem adulterações ou adaptações desnecessárias.</p>
                         </div>
                     </div>
                     
@@ -832,15 +922,13 @@
                         </div>
                         <div>
                             <h4>Comunidade & Responsabilidade Social</h4>
-                            <p>
-                                Acreditamos que um restaurante deve ser parte activa da sua comunidade. Oferecemos formação gratuita em culinária para jovens angolanos, apoiamos projectos agrícolas locais e destinamos 2% dos nossos lucros para iniciativas de segurança alimentar em comunidades rurais.
-                            </p>
+                            <p>Acreditamos que um restaurante deve ser parte activa da sua comunidade. Oferecemos formação gratuita em culinária para jovens angolanos, apoiamos projectos agrícolas locais e destinamos 2% dos nossos lucros para iniciativas de segurança alimentar em comunidades rurais.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Valores -->
+            <!-- ========== VALORES ========== -->
             <h2 class="section-title mt-5">Nossos Valores</h2>
             
             <div class="valores-grid">
@@ -876,11 +964,41 @@
                     <p>Praticamos e promovemos a sustentabilidade em todas as nossas operações.</p>
                 </div>
             </div>
+
+            <!-- ========== PREPARAÇÃO E FORMAÇÃO DOS EMPREGADOS ========== -->
+            <div class="history-card mt-5">
+                <h3><i class="fas fa-chalkboard-teacher me-3" style="color: var(--primary-yellow);"></i> Preparação e Formação dos Empregados</h3>
+                <p class="lead">No Danieta Sabores, o atendimento é uma arte.</p>
+                <p>A equipa passa por:</p>
+                <ul class="custom-list">
+                    <li><i class="fas fa-globe"></i> Formação em hospitalidade internacional</li>
+                    <li><i class="fas fa-drum"></i> Treino em cultura e história angolana</li>
+                    <li><i class="fas fa-user-check"></i> Curso de atendimento personalizado</li>
+                    <li><i class="fas fa-shield-alt"></i> Formação contínua em higiene e segurança alimentar</li>
+                    <li><i class="fas fa-smile"></i> Capacitação em inteligência emocional e comunicação</li>
+                </ul>
+                <p class="mt-4">Cada colaborador é preparado para oferecer um serviço acolhedor, respeitoso e profissional, digno de um restaurante 5 estrelas.</p>
+            </div>
+
+            <!-- ========== CULTURA E IDENTIDADE ANGOLANA ========== -->
+            <div class="history-card">
+                <h3><i class="fas fa-flag me-3" style="color: var(--primary-yellow);"></i> Cultura e Identidade Angolana</h3>
+                <p>O restaurante promove:</p>
+                <ul class="custom-list">
+                    <li><i class="fas fa-music"></i> Música tradicional angolana</li>
+                    <li><i class="fas fa-calendar-alt"></i> Eventos culturais</li>
+                    <li><i class="fas fa-palette"></i> Exposição de arte local</li>
+                    <li><i class="fas fa-star"></i> Datas comemorativas nacionais</li>
+                    <li><i class="fas fa-tshirt"></i> Valorização de trajes e expressões culturais</li>
+                </ul>
+                <p class="mt-3">A experiência é imersiva — cada detalhe conta uma história.</p>
+            </div>
+
         </div>
     </section>
 
     <!-- ================================================= -->
-    <!-- RODAPÉ - DANIETA SABORES (IGUAL AO INDEX)        -->
+    <!-- RODAPÉ                                            -->
     <!-- ================================================= -->
     <footer class="footer-gerard">
         <div class="container">
@@ -946,7 +1064,7 @@
     </footer>
 
     <!-- ================================================= -->
-    <!-- BADGE FIXO DE DELIVERY                           -->
+    <!-- BADGE FIXO DE DELIVERY                            -->
     <!-- ================================================= -->
     <a href="delivery.html" class="delivery-badge">
         <i class="fas fa-motorcycle"></i>
@@ -954,7 +1072,7 @@
     </a>
 
     <!-- ================================================= -->
-    <!-- SCRIPTS                                          -->
+    <!-- SCRIPTS                                           -->
     <!-- ================================================= -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
